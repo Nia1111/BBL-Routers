@@ -1,6 +1,27 @@
 Routers
 
+mod and tag filters are wip
+
+1.2.1
+- Disabled shift clicking
+- Now works across different dimensions
+- Somehow chunk loading importers?
+- Importer can now be connected to multiple exporters using the connector
+- Round robin now works
+- Added Blacklist Upgrade when installed on the exporter will make the filter blacklist instead of whitelist
+- Added Ignore NBT upgrade when installed on the exporter will make the filter ignore NBT data when filtering eg this will move all potions instead of just one type in the filter
+- Round Robin, Blacklist, Ignore NBT (In Theory) upgrades work with items and fluids
+- Cross dimensional connection no longer invalidate due to checking wrong dimension
+- Added missing translations for current upgrades
+
 1.2.0
+- This is basically a rewrite of the mod at this point, major changes to how things work under the hood
+- Removed all support for old handlers and modded support like mekanism chemicals (these will come back as addons in the future)
+- Exporters menu overhauled, upgrades limited to one type resource type
+- Each upgrade will add a "config" button to the exporter menu, clicking this opens the filter menu for that resource type
+- Importer menu disabled at the moment
+- Item and fluids are fully implemented with the new system including filtering
+- Speed upgrades are also implemented for exporters
 
 1.1.4
 - Tweaked beam rendering again to be more consistent in all directions

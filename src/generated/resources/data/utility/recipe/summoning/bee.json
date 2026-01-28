@@ -1,0 +1,15 @@
+{
+  "type": "utility:summoning",
+  "below_block": {
+    "Name": "minecraft:beehive",
+    "Properties": {
+      "facing": "north",
+      "honey_level": "0"
+    }
+  },
+  "entity": "minecraft:bee",
+  "input": {
+    "count": 1,
+    "ingredient": "#c:flowers"
+  }
+}

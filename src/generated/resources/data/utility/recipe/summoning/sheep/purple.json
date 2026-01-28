@@ -1,0 +1,12 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:sheep",
+  "entity_data": {
+    "Color": 10
+  },
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:purple_wool"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:cow",
+  "entity_data": {
+    "variant": "minecraft:warm"
+  },
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:leather"
+  },
+  "temperature_variant": "warm"
+}

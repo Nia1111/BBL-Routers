@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "utility",
+  "ingredients": [
+    "minecraft:charcoal"
+  ],
+  "result": {
+    "count": 8,
+    "id": "utility:mini_charcoal"
+  }
+}

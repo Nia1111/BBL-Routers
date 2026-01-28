@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "utility",
+  "ingredients": [
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal",
+    "utility:mini_coal"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:coal"
+  }
+}

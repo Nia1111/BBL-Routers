@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:mooshroom",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:mushroom_stew"
+  }
+}

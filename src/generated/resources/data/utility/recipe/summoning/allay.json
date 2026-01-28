@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:allay",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:diamond_block"
+  }
+}

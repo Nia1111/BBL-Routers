@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:leaves",
+  "entity": "minecraft:parrot",
+  "input": {
+    "count": 1,
+    "ingredient": "#c:seeds"
+  }
+}

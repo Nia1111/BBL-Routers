@@ -1,0 +1,80 @@
+package com.benbenlaw.routers.event;
+
+import com.benbenlaw.core.util.TooltipUtil;
+import com.benbenlaw.routers.Routers;
+import com.benbenlaw.routers.block.RoutersBlocks;
+import com.benbenlaw.routers.config.StartupConfig;
+import com.benbenlaw.routers.item.RoutersItems;
+import com.benbenlaw.routers.item.UpgradeItem;
+import com.benbenlaw.routers.util.RoutersTags;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+
+@EventBusSubscriber(modid = Routers.MOD_ID)
+public class TooltipEvent {
+
+    @SubscribeEvent
+    public static void onTooltipEvent(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        String moreInfo = "";
+
+        if (stack.getItem() instanceof UpgradeItem upgradeItem) {
+            moreInfo = String.valueOf(upgradeItem.getExtractAmount());
+        }
+
+        addShiftTooltip(stack, event, RoutersBlocks.EXPORTER.get().asItem(), "tooltip.routers.exporter",
+                String.valueOf(StartupConfig.defaultSpeedPerOperation.get()));
+        TooltipUtil.addShiftTooltip(stack, event, RoutersBlocks.IMPORTER.get().asItem(), "tooltip.routers.importer");
+        TooltipUtil.addShiftTooltip(stack, event, RoutersItems.CONNECTOR.get(), "tooltip.routers.connector");
+
+        addShiftTooltip(stack, event, RoutersTags.Items.ITEM_UPGRADES, "tooltip.routers.item_upgrade", moreInfo);
+        addShiftTooltip(stack, event, RoutersTags.Items.FLUID_UPGRADES, "tooltip.routers.fluid_upgrade", moreInfo);
+        addShiftTooltip(stack, event, RoutersTags.Items.RF_UPGRADES, "tooltip.routers.energy_upgrade", moreInfo);
+        addShiftTooltip(stack, event, RoutersTags.Items.SPEED_UPGRADES, "tooltip.routers.speed_upgrade", moreInfo);
+
+        TooltipUtil.addShiftTooltip(stack, event, RoutersItems.ROUND_ROBIN_UPGRADE.get(), "tooltip.routers.round_robin_upgrade");
+        TooltipUtil.addShiftTooltip(stack, event, RoutersItems.DIMENSIONAL_UPGRADE.get(), "tooltip.routers.dimensional_upgrade");
+        TooltipUtil.addShiftTooltip(stack, event, RoutersItems.BLACKLIST_UPGRADE.get(), "tooltip.routers.blacklist_upgrade");
+        TooltipUtil.addShiftTooltip(stack, event, RoutersItems.IGNORE_NBT_UPGRADE.get(), "tooltip.routers.ignore_nbt_upgrade");
+
+
+
+    }
+
+
+    public static void addShiftTooltip(ItemStack stack, ItemTooltipEvent event, Item item, String tooltipText, String additionalInfo) {
+        if (!stack.is(item)) return;
+
+        if (Minecraft.getInstance().hasShiftDown()) {
+            event.getToolTip().add(
+                    Component.translatable(tooltipText, additionalInfo).withStyle(ChatFormatting.BLUE)
+            );
+        } else {
+            event.getToolTip().add(
+                    Component.translatable("tooltip.bblcore.shift").withStyle(ChatFormatting.YELLOW)
+            );
+        }
+    }
+
+    public static void addShiftTooltip(ItemStack stack, ItemTooltipEvent event, TagKey<Item> item, String tooltipText, String... additionalInfo) {
+        if (!stack.is(item)) return;
+
+        if (Minecraft.getInstance().hasShiftDown()) {
+            event.getToolTip().add(
+                    Component.translatable(tooltipText, (Object[]) additionalInfo).withStyle(ChatFormatting.BLUE)
+            );
+        } else {
+            event.getToolTip().add(
+                    Component.translatable("tooltip.bblcore.shift").withStyle(ChatFormatting.YELLOW)
+            );
+        }
+    }
+}

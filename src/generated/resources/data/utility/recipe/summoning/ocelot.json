@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:jungle_logs",
+  "entity": "minecraft:ocelot",
+  "input": {
+    "count": 1,
+    "ingredient": "#minecraft:fishes"
+  }
+}

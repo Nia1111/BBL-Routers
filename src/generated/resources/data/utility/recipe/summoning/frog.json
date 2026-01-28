@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:frog",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:slime_ball"
+  }
+}

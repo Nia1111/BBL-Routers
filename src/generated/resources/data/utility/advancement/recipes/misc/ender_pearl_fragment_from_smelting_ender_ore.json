@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ender_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "utility:ender_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "utility:ender_pearl_fragment_from_smelting_ender_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ender_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "utility:ender_pearl_fragment_from_smelting_ender_ore"
+    ]
+  }
+}

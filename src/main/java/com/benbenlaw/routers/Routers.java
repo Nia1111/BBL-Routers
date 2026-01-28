@@ -2,17 +2,17 @@ package com.benbenlaw.routers;
 
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.RoutersBlocks;
-import com.benbenlaw.routers.block.entity.client.ExporterBlockEntityRenderer;
 import com.benbenlaw.routers.config.StartupConfig;
 import com.benbenlaw.routers.item.RoutersCreativeTab;
 import com.benbenlaw.routers.item.RoutersDataComponents;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.networking.RoutersNetworking;
-import com.benbenlaw.routers.particle.RoutersParticles;
 import com.benbenlaw.routers.screen.ConfigScreen;
 import com.benbenlaw.routers.screen.ExporterScreen;
 import com.benbenlaw.routers.screen.ImporterScreen;
 import com.benbenlaw.routers.screen.RoutersMenuTypes;
+import com.benbenlaw.routers.screen.upgrade.FilterScreen;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,7 +21,6 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.apache.logging.log4j.LogManager;
@@ -34,13 +33,12 @@ public class Routers {
 
     public Routers(final IEventBus eventBus, final ModContainer modContainer) {
 
-        RoutersItems.ITEMS.register(eventBus);
-        RoutersDataComponents.COMPONENTS.register(eventBus);
         RoutersBlocks.BLOCKS.register(eventBus);
         RoutersBlockEntities.BLOCK_ENTITIES.register(eventBus);
-        RoutersMenuTypes.MENUS.register(eventBus);
+        RoutersItems.ITEMS.register(eventBus);
+        RoutersDataComponents.COMPONENTS.register(eventBus);
         RoutersCreativeTab.CREATIVE_MODE_TABS.register(eventBus);
-        RoutersParticles.PARTICLE_TYPES.register(eventBus);
+        RoutersMenuTypes.MENUS.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
 
@@ -60,15 +58,13 @@ public class Routers {
             event.register(RoutersMenuTypes.IMPORTER_MENU.get(), ImporterScreen::new);
             event.register(RoutersMenuTypes.CONFIG_MENU.get(), ConfigScreen::new);
 
+            event.register(RoutersMenuTypes.FILTER_MENU.get(), FilterScreen::new);
 
-        }
 
-        @SubscribeEvent
-        public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            // Moved to event bus
-            event.registerBlockEntityRenderer(RoutersBlockEntities.EXPORTER_BLOCK_ENTITY.get(), ExporterBlockEntityRenderer::new);
         }
     }
 
-
+    public static Identifier identifier(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    }
 }

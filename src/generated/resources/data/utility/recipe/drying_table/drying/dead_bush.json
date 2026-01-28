@@ -1,0 +1,12 @@
+{
+  "type": "utility:drying_table",
+  "input": {
+    "count": 1,
+    "ingredient": "#minecraft:saplings"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:dead_bush"
+  },
+  "recipe_type": "DRYING"
+}

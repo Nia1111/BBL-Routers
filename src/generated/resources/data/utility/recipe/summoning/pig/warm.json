@@ -1,0 +1,13 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:pig",
+  "entity_data": {
+    "variant": "minecraft:warm"
+  },
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:porkchop"
+  },
+  "temperature_variant": "warm"
+}

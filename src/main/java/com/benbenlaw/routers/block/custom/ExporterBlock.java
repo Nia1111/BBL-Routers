@@ -2,6 +2,7 @@ package com.benbenlaw.routers.block.custom;
 
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
+import com.benbenlaw.routers.item.RoutersItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -24,6 +25,7 @@ public class ExporterBlock extends RouterBlock {
     @Override
     protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
+            if (player.getMainHandItem().is(RoutersItems.CONNECTOR)) return InteractionResult.FAIL;
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof ExporterBlockEntity entity1) {
                 player.openMenu(new SimpleMenuProvider(entity1, entity1.getDisplayName()), pos);

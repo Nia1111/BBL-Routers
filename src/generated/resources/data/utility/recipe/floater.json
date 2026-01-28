@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "utility",
+  "key": {
+    "A": "#c:feathers",
+    "B": "#minecraft:wool"
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "utility:floater"
+  }
+}

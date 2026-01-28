@@ -1,6 +1,7 @@
 package com.benbenlaw.routers.screen;
 
 import com.benbenlaw.routers.Routers;
+import com.benbenlaw.routers.screen.upgrade.FilterMenu;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -19,5 +20,13 @@ public class RoutersMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<ConfigMenu>> CONFIG_MENU =
             MENUS.register("config_menu", () -> IMenuTypeExtension.create(ConfigMenu::new));
+
+
+
+    public static final DeferredHolder<MenuType<?>, MenuType<FilterMenu>> FILTER_MENU =
+            MENUS.register("item_filter_menu", () -> IMenuTypeExtension.create(FilterMenu::new));
+
+
+
 
 }

@@ -1,0 +1,14 @@
+{
+  "type": "utility:summoning",
+  "below_block": {
+    "Name": "minecraft:water",
+    "Properties": {
+      "level": "0"
+    }
+  },
+  "entity": "minecraft:tadpole",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:slime_ball"
+  }
+}

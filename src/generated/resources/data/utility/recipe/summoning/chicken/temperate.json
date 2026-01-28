@@ -1,0 +1,13 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:chicken",
+  "entity_data": {
+    "variant": "minecraft:temperate"
+  },
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:chicken"
+  },
+  "temperature_variant": "temperate"
+}

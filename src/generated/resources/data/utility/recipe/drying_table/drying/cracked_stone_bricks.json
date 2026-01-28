@@ -1,0 +1,12 @@
+{
+  "type": "utility:drying_table",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:stone_bricks"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:cracked_stone_bricks"
+  },
+  "recipe_type": "DRYING"
+}

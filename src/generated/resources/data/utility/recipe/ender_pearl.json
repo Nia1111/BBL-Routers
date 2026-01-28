@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "utility",
+  "ingredients": [
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment",
+    "utility:ender_pearl_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:ender_pearl"
+  }
+}

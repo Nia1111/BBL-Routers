@@ -1,9 +1,12 @@
 package com.benbenlaw.routers.integration;
 
+import com.benbenlaw.core.integration.jei.GhostFilter;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.screen.ExporterScreen;
 import com.benbenlaw.routers.screen.ImporterScreen;
+import com.benbenlaw.routers.screen.upgrade.FilterMenu;
+import com.benbenlaw.routers.screen.upgrade.FilterScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -25,12 +28,12 @@ public class JEIRoutersPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addGhostIngredientHandler(ExporterScreen.class, new GhostIngredientExporterHandler());
-        registration.addGhostIngredientHandler(ImporterScreen.class, new GhostIngredientImporterHandler());
+        registration.addGhostIngredientHandler(FilterScreen.class, new GhostFilter());
+        registration.addGhostIngredientHandler(ImporterScreen.class, new GhostFilter());
     }
 
     @Override
     public void registerIngredientAliases(IIngredientAliasRegistration registration) {
-        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersItems.ROUTER_CONNECTOR.get())), "wrench");
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersItems.CONNECTOR.get())), "wrench");
     }
 }

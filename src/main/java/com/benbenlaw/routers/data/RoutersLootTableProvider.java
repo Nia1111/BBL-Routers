@@ -12,24 +12,25 @@ import java.util.Set;
 
 public class RoutersLootTableProvider extends VanillaBlockLoot {
 
-    public RoutersLootTableProvider(HolderLookup.Provider p_344962_) {
-        super(p_344962_);
+    private final Set<Block> knownBlocks = new ReferenceOpenHashSet<>();
+
+
+    public RoutersLootTableProvider(HolderLookup.Provider provider) {
+        super(provider);
     }
 
     @Override
     protected void generate() {
 
-        this.dropSelf(RoutersBlocks.IMPORTER_BLOCK.get());
-        this.dropSelf(RoutersBlocks.EXPORTER_BLOCK.get());
+        this.dropSelf(RoutersBlocks.IMPORTER.get());
+        this.dropSelf(RoutersBlocks.EXPORTER.get());
     }
 
     @Override
     protected void add(@NotNull Block block, @NotNull LootTable.Builder table) {
-        //Overwrite the core register method to add to our list of known blocks
         super.add(block, table);
         knownBlocks.add(block);
     }
-    private final Set<Block> knownBlocks = new ReferenceOpenHashSet<>();
 
     @NotNull
     @Override

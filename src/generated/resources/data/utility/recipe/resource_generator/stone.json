@@ -1,0 +1,21 @@
+{
+  "type": "utility:resource_generator",
+  "consume_left": false,
+  "consume_right": false,
+  "input": {
+    "count": 1,
+    "id": "minecraft:stone"
+  },
+  "left_fluid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:stone"
+  },
+  "right_fluid": {
+    "amount": 1000,
+    "id": "minecraft:lava"
+  }
+}

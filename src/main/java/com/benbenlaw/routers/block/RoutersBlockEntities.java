@@ -20,5 +20,4 @@ public class RoutersBlockEntities {
     public static final Supplier<BlockEntityType<ExporterBlockEntity>> EXPORTER_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("exporter_block_entity", () ->
                     new BlockEntityType<>(ExporterBlockEntity::new, RoutersBlocks.EXPORTER.get()));
-
 }

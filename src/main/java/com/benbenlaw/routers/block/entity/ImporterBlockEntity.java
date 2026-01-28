@@ -16,24 +16,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImporterBlockEntity extends SyncableBlockEntity implements MenuProvider, IAttachmentHolder {
+public class ImporterBlockEntity extends SyncableBlockEntity implements MenuProvider {
 
-    private List<BlockPos> importerPositions;
     public final ContainerData data;
-    public final GlobalPos importerPos = GlobalPos.of(this.level.dimension(), this.worldPosition);
+    public final GlobalPos importerPos;
     private FilterItemHandler filterItemHandler = new FilterItemHandler(this, 9);
     private FilterFluidHandler filterFluidHandler = new FilterFluidHandler(this, 9);
-    private final InputItemHandler upgradeItemHandler = new InputItemHandler(this, 9, (i, stack) -> stack.is(RoutersTags.Items.UPGRADES));
 
     public ImporterBlockEntity(BlockPos pos, BlockState state) {
         super(RoutersBlockEntities.IMPORTER_BLOCK_ENTITY.get(), pos, state);
-        this.importerPositions = new ArrayList<>();
+         this.importerPos = null;
 
         this.data = new ContainerData() {;
             @Override
@@ -53,8 +53,6 @@ public class ImporterBlockEntity extends SyncableBlockEntity implements MenuProv
         };
     }
 
-
-
     public void tick() {
 
     }
@@ -63,8 +61,8 @@ public class ImporterBlockEntity extends SyncableBlockEntity implements MenuProv
         return filterItemHandler;
     }
 
-    public InputItemHandler getUpgradeItemHandler() {
-        return upgradeItemHandler;
+    public FilterFluidHandler getFilterFluidHandler() {
+        return filterFluidHandler;
     }
 
     @Override
@@ -77,5 +75,21 @@ public class ImporterBlockEntity extends SyncableBlockEntity implements MenuProv
         return new ImporterMenu(container, inventory, this.getBlockPos(), data);
     }
 
+    @Override
+    protected void saveAdditional(@NotNull ValueOutput output) {
 
+        filterItemHandler.serialize(output.child("itemFilter"));
+        filterFluidHandler.serialize(output.child("fluidFilter"));
+
+        super.saveAdditional(output);
+    }
+
+    @Override
+    protected void loadAdditional(@NotNull ValueInput input) {
+
+        filterItemHandler.deserialize(input.childOrEmpty("itemFilter"));
+        filterFluidHandler.deserialize(input.childOrEmpty("fluidFilter"));
+
+        super.loadAdditional(input);
+    }
 }

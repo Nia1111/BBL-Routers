@@ -1,0 +1,9 @@
+{
+  "type": "utility:summoning",
+  "below_block": "#minecraft:dirt",
+  "entity": "minecraft:sniffer",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:pitcher_pod"
+  }
+}

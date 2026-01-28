@@ -2,6 +2,7 @@ package com.benbenlaw.routers.item;
 
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
+import com.benbenlaw.utility.item.UtilityItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,41 +15,10 @@ public class RoutersCreativeTab {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Routers.MOD_ID);
 
-    public static final Supplier<CreativeModeTab> CASTING_TAB = CREATIVE_MODE_TABS.register("routers", () -> CreativeModeTab.builder()
+    public static final Supplier<CreativeModeTab> ROUTERS_TAB = CREATIVE_MODE_TABS.register("routers", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> RoutersItems.ROUTER_CONNECTOR.get().getDefaultInstance())
+            .icon(() -> RoutersItems.CONNECTOR.get().getDefaultInstance())
             .title(Component.translatable("itemGroup.routers"))
-            .displayItems((parameters, output) -> {
+            .displayItems(RoutersItems.ITEMS.getEntries()).build());
 
-                output.accept(RoutersBlocks.EXPORTER);
-                output.accept(RoutersBlocks.IMPORTER);
-                output.accept(RoutersItems.ROUTER_CONNECTOR);
-
-                output.accept(RoutersItems.RF_UPGRADE_1);
-                output.accept(RoutersItems.RF_UPGRADE_2);
-                output.accept(RoutersItems.RF_UPGRADE_3);
-                output.accept(RoutersItems.RF_UPGRADE_4);
-
-                output.accept(RoutersItems.ITEM_UPGRADE_1);
-                output.accept(RoutersItems.ITEM_UPGRADE_2);
-                output.accept(RoutersItems.ITEM_UPGRADE_3);
-                output.accept(RoutersItems.ITEM_UPGRADE_4);
-
-                output.accept(RoutersItems.FLUID_UPGRADE_1);
-                output.accept(RoutersItems.FLUID_UPGRADE_2);
-                output.accept(RoutersItems.FLUID_UPGRADE_3);
-                output.accept(RoutersItems.FLUID_UPGRADE_4);
-
-                output.accept(RoutersItems.SPEED_UPGRADE_1);
-                output.accept(RoutersItems.SPEED_UPGRADE_2);
-                output.accept(RoutersItems.SPEED_UPGRADE_3);
-                output.accept(RoutersItems.SPEED_UPGRADE_4);
-
-                output.accept(RoutersItems.ROUND_ROBIN_UPGRADE);
-                output.accept(RoutersItems.MOD_FILTER);
-                output.accept(RoutersItems.TAG_FILTER);
-                output.accept(RoutersItems.DIMENSIONAL_UPGRADE);
-
-
-            }).build());
 }

@@ -1,0 +1,12 @@
+{
+  "type": "utility:drying_table",
+  "input": {
+    "count": 1,
+    "ingredient": "minecraft:sponge"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:wet_sponge"
+  },
+  "recipe_type": "SOAKING"
+}

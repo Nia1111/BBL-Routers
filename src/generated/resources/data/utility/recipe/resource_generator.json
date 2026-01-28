@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "utility",
+  "key": {
+    "A": "#c:ingots/iron",
+    "B": "#c:ingots/gold",
+    "C": "minecraft:bucket",
+    "D": "#c:chests/wooden"
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "utility:resource_generator"
+  }
+}

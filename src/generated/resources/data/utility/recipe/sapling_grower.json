@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "utility",
+  "key": {
+    "A": "minecraft:bone_block",
+    "B": "#c:rods/wooden"
+  },
+  "pattern": [
+    "  A",
+    " B ",
+    "B  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "utility:sapling_grower"
+  }
+}

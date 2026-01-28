@@ -1,0 +1,12 @@
+{
+  "type": "utility:drying_table",
+  "input": {
+    "count": 1,
+    "ingredient": "utility:soaked_paper"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:paper"
+  },
+  "recipe_type": "DRYING"
+}

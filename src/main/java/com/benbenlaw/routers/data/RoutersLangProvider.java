@@ -2,12 +2,11 @@ package com.benbenlaw.routers.data;
 
 import com.benbenlaw.routers.Routers;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class RoutersLangProvider extends LanguageProvider {
 
-    public RoutersLangProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+    public RoutersLangProvider(PackOutput output) {
         super(output, Routers.MOD_ID, "en_us");
     }
 
@@ -18,106 +17,63 @@ public class RoutersLangProvider extends LanguageProvider {
         add("itemGroup.routers", "Routers");
 
         //Items
-        addItemTranslation("router_connector", "Connector");
-        addItemTranslation("rf_upgrade_1", "RF Upgrade I");
-        addItemTranslation("rf_upgrade_2", "RF Upgrade II");
-        addItemTranslation("rf_upgrade_3", "RF Upgrade III");
-        addItemTranslation("rf_upgrade_4", "RF Upgrade IV");
+        add("item.routers.connector", "Connector");
 
-        addItemTranslation("item_upgrade_1", "Item Upgrade I");
-        addItemTranslation("item_upgrade_2", "Item Upgrade II");
-        addItemTranslation("item_upgrade_3", "Item Upgrade III");
-        addItemTranslation("item_upgrade_4", "Item Upgrade IV");
+        add("item.routers.rf_upgrade_1", "RF Upgrade I");
+        add("item.routers.rf_upgrade_2", "RF Upgrade II");
+        add("item.routers.rf_upgrade_3", "RF Upgrade III");
+        add("item.routers.rf_upgrade_4", "RF Upgrade IV");
 
-        addItemTranslation("fluid_upgrade_1", "Fluid Upgrade I");
-        addItemTranslation("fluid_upgrade_2", "Fluid Upgrade II");
-        addItemTranslation("fluid_upgrade_3", "Fluid Upgrade III");
-        addItemTranslation("fluid_upgrade_4", "Fluid Upgrade IV");
+        add("item.routers.item_upgrade_1", "Item Upgrade I");
+        add("item.routers.item_upgrade_2", "Item Upgrade II");
+        add("item.routers.item_upgrade_3", "Item Upgrade III");
+        add("item.routers.item_upgrade_4", "Item Upgrade IV");
 
-        addItemTranslation("chemical_upgrade_1", "Chemical Upgrade I");
-        addItemTranslation("chemical_upgrade_2", "Chemical Upgrade II");
-        addItemTranslation("chemical_upgrade_3", "Chemical Upgrade III");
-        addItemTranslation("chemical_upgrade_4", "Chemical Upgrade IV");
+        add("item.routers.fluid_upgrade_1", "Fluid Upgrade I");
+        add("item.routers.fluid_upgrade_2", "Fluid Upgrade II");
+        add("item.routers.fluid_upgrade_3", "Fluid Upgrade III");
+        add("item.routers.fluid_upgrade_4", "Fluid Upgrade IV");
 
-        addItemTranslation("speed_upgrade_1", "Speed Upgrade I");
-        addItemTranslation("speed_upgrade_2", "Speed Upgrade II");
-        addItemTranslation("speed_upgrade_3", "Speed Upgrade III");
-        addItemTranslation("speed_upgrade_4", "Speed Upgrade IV");
-
-        addItemTranslation("source_upgrade_1", "Source Upgrade I");
-        addItemTranslation("source_upgrade_2", "Source Upgrade II");
-        addItemTranslation("source_upgrade_3", "Source Upgrade III");
-        addItemTranslation("source_upgrade_4", "Source Upgrade IV");
-
-
-        addItemTranslation("soul_upgrade", "Soul Upgrade");
-
-        addItemTranslation("round_robin_upgrade", "Round Robin Upgrade");
-        addItemTranslation("mod_filter", "Mod Filter");
-        addItemTranslation("tag_filter", "Tag Filter");
-        addItemTranslation("dimensional_upgrade", "Dimensional Upgrade");
-
-        addItemTranslation("pressure_upgrade", "Basic Pressure Upgrade");
-        addItemTranslation("reinforced_pressure_upgrade", "Reinforced Pressure Upgrade");
-        addItemTranslation("advanced_pressure_upgrade", "Advanced Pressure Upgrade");
-
-        addItemTranslation("heat_upgrade_pc", "Heat Upgrade (PneumaticCraft)");
-
+        add("item.routers.round_robin_upgrade", "Round Robin Upgrade");
+        add("item.routers.dimensional_upgrade", "Dimensional Upgrade");
+        add("item.routers.blacklist_upgrade", "Blacklist Upgrade");
+        add("item.routers.ignore_nbt_upgrade", "Ignore NBT/Components Upgrade");
+        add("item.routers.mod_filter_upgrade", "Mod Filter Upgrade (Not Yet Implemented)");
+        add("item.routers.tag_filter_upgrade", "Tag Filter Upgrade (Not Yet Implemented)");
 
 
         //Blocks
-        addBlockTranslation("importer_block", "Importer");
-        addBlockTranslation("exporter_block", "Exporter");
-
-        //Messages
-        addMessageTranslation("exporter.remove_importer", "Removed Importer from Exporter");
-        addMessageTranslation("exporter.add_importer", "Added Importer to Exporter");
-        addMessageTranslation("importer.removed_pos", "Removed Importer position");
-        addMessageTranslation("importer.added_pos", "Added Importer position");
+        add("block.routers.exporter", "Exporter");
+        add("block.routers.importer", "Importer");
 
         //Tooltips
-        addTooltipsTranslation("hold_shift", "Press SHIFT for more info");
-        addTooltipsTranslation("rf_upgrade", "Allows Extraction of RF from the Exporter at %s RF/Per Operation");
-        addTooltipsTranslation("item_upgrade", "Allows Extraction of Items from the Exporter at %s Items/Per Operation");
-        addTooltipsTranslation("fluid_upgrade", "Allows Extraction of Fluids from the Exporter at %s MB/Per Operation");
-        addTooltipsTranslation("chemical_upgrade", "Allows Extraction of Mekanism Chemicals from the Exporter at %s mB/Per Operation");
-        addTooltipsTranslation("speed_upgrade", "Allows Extraction of from the Exporter every %s Ticks");
-        addTooltipsTranslation("source_upgrade", "Allows Extraction of Ars Nouveau Source from the Exporter at %s Per Operation");
-        addTooltipsTranslation("round_robin_upgrade", "Extractor distributes in order evenly between multiple Importers");
-        addTooltipsTranslation("soul_upgrade", "Allows Extraction of Industrial Forgoing Souls Soul from the Exporter at 10 Per Operation, Importer must be connected to a Soul Surge");
-        addTooltipsTranslation("tag_filter_empty", "Right Click to open, allows filtering by Mod");
-        addTooltipsTranslation("mod_filter_empty", "Right Click to open, allows filtering by Tag");
-        addTooltipsTranslation("tag_filter", "Tag: %s");
-        addTooltipsTranslation("mod_filter", "Mod: %s");
-        addTooltipsTranslation("dimensional_upgrade", "Allows the Exporter to extract to Importers in other Dimensions");
-        addTooltipsTranslation("pressure_upgrade", "Allows Extraction of Pneumaticcraft Air from the Exporter at %s Air/Per Operation");
+        add("tooltip.routers.connector", "Shift Right Click to set Exporter / Importer target. Right Click to connect to target");
+        add("tooltip.routers.exporter", "Exports resources from a connected block to Importer, Exporters extract every %s ticks");
+        add("tooltip.routers.importer", "Receives resources from connected Exporters");
+
+        add("tooltip.routers.item_upgrade", "Allows the Extraction of Items from an Exporter at %s Per Operation");
+        add("tooltip.routers.fluid_upgrade", "Allows the Extraction of Fluids from an Exporter at %smb Per Operation");
+        add("tooltip.routers.energy_upgrade", "Allows the Extraction of Energy from an Exporter at %sRF Per Tick");
+        add("tooltip.routers.speed_upgrade", "Allows the Extractor to extract every %s ticks");
+
+        add("tooltip.routers.round_robin_upgrade", "After each operation, the Exporter will try to insert into the next connected Importer");
+        add("tooltip.routers.dimensional_upgrade", "Allows the Exporter to send resources to an Importer in a different dimension");
+        add("tooltip.routers.blacklist_upgrade", "Changes the filtering to be a Blacklist. Effects all resource types that can be filtered");
+        add("tooltip.routers.ignore_nbt_upgrade", "Ignores NBT/Data when filtering resources. Effects all resource types that can be filtered");
 
 
 
-        addTooltipsTranslation("router_connector", "Right Click on an Importer to set the position then Right Click on an Exporter to link them. Right Click to unlink.");
-        addTooltipsTranslation("exporter", "Does nothing on its own, used to extract from the connected inventory to a connected Importer(s). Use Upgrades to allow different types of extraction.");
-        addTooltipsTranslation("importer", "Does nothing on its own, used to insert into the connected inventory from a connected Exporter.");
-        addTooltipsTranslation("exporter_filter_slots", "Empty Item/Fluid Filter");
-        addTooltipsTranslation("exporter_upgrades_slots", "Upgrade Slot");
+        //Client Messages
+        add("message.routers.exporter_selected", "Exporter target set to %s");
+        add("message.routers.importer_selected", "Importer target set to %s");
+        add("message.routers.connected_exporter_to_importer", "Connected Exporter to Importer at %s");
+        add("message.routers.connected_importer_to_exporter", "Connected Importer to Exporter at %s");
+        add("message.routers.not_loaded", "Area not loaded to connect routers!");
+        add("message.routers.no_exporter_importer_selected", "No Exporter / Importer selected. Shift right click to set main connection !");
 
-        add("screen.routers.config_screen", "Set Filter");
 
     }
 
-    private void addItemTranslation(String name, String translation) {
-        add("item." + Routers.MOD_ID + "." + name, translation);
-    }
 
-    private void addBlockTranslation(String name, String translation) {
-        add("block." + Routers.MOD_ID + "." + name, translation);
-    }
-
-    private void addMessageTranslation(String name, String translation) {
-        add("message." + Routers.MOD_ID + "." + name, translation);
-    }
-
-    private void addTooltipsTranslation(String name, String translation) {
-        add("tooltip." + Routers.MOD_ID + "." + name, translation);
-    }
 }
 

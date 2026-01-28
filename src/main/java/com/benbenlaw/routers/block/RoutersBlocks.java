@@ -4,9 +4,13 @@ import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.custom.ExporterBlock;
 import com.benbenlaw.routers.block.custom.ImporterBlock;
 import com.benbenlaw.routers.item.RoutersItems;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -15,11 +19,15 @@ import java.util.function.Supplier;
 public class RoutersBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Routers.MOD_ID);
 
-    public static final DeferredBlock<ImporterBlock> IMPORTER = registerBlock("importer",
-            () -> new ImporterBlock(Block.Properties.of().strength(2.0f).noOcclusion()));
 
-    public static final DeferredBlock<ExporterBlock> EXPORTER = registerBlock("exporter",
-            () -> new ExporterBlock(Block.Properties.of().strength(2.0f).noOcclusion()));
+    public static final DeferredBlock<Block> IMPORTER = registerBlock("importer",
+            () -> new ImporterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+                    .noOcclusion().setId(createID("importer"))));
+
+    public static final DeferredBlock<Block> EXPORTER = registerBlock("exporter",
+            () -> new ExporterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+                    .noOcclusion().setId(createID("exporter"))));
+
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
@@ -29,6 +37,10 @@ public class RoutersBlocks {
     }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
-        RoutersItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        RoutersItems.ITEMS.registerItem(name, (properties) -> new BlockItem(block.get(), properties.useBlockDescriptionPrefix()));
+    }
+
+    public static ResourceKey<Block> createID(String name) {
+        return ResourceKey.create(Registries.BLOCK, Routers.identifier(name));
     }
 }
