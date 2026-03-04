@@ -3,8 +3,6 @@ package com.benbenlaw.routers.data;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.item.RoutersItems;
-import com.benbenlaw.utility.Utility;
-import com.benbenlaw.utility.block.UtilityBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -72,6 +70,6 @@ public class RoutersModelProvider extends ModelProvider {
 
     @Override
     public @NotNull String getName() {
-        return Utility.MOD_ID + " Models";
+        return Routers.MOD_ID + " Models";
     }
 }

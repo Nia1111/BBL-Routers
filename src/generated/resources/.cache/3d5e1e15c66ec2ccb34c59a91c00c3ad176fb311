@@ -1,4 +1,4 @@
-// 1.21.11	2026-01-28T10:48:22.5973946	Tags for minecraft:item mod id routers
+// 26.1-snapshot-6	2026-03-04T17:54:12.330317	Tags for minecraft:item mod id routers
 31137ea53dd8d43545ae6d423a1b012ad1935bc4 data/c/tags/item/tools/wrench.json
 1b8afb50c1fdb835fe01cfccc90aa012fb3642e8 data/c/tags/item/upgrades.json
 c730f894e2270197fd5cb894e19c23d024d93973 data/routers/tags/item/dimensional_upgrades.json

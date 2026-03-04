@@ -66,6 +66,15 @@ public class RoutersLangProvider extends LanguageProvider {
         add("tooltip.routers.blacklist_upgrade", "Changes the filtering to be a Blacklist. Effects all resource types that can be filtered");
         add("tooltip.routers.ignore_nbt_upgrade", "Ignores NBT/Data when filtering resources. Effects all resource types that can be filtered");
 
+        add("tooltip.routers.menu.item", "Item Filter");
+        add("tooltip.routers.button.item", "Item Filter");
+
+        add("tooltip.routers.menu.fluid", "Fluid Filter");
+        add("tooltip.routers.button.fluid", "Fluid Filter");
+
+        add("tooltip.routers.menu.energy", "Energy");
+        add("tooltip.routers.button.energy", "Energy");
+
 
 
         //Client Messages

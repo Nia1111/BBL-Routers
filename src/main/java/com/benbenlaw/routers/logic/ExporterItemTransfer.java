@@ -174,8 +174,11 @@ public class ExporterItemTransfer {
                         resource -> {
                             boolean isWhitelist = !exporter.isBlacklist();
 
-                            if (!exporterFilter.matchesItem(resource, isWhitelist, exporter.isIgnoreNbt())) {
-                                return false;
+                            // If exporter filter is NOT empty, enforce it
+                            if (!ResourceHandlerUtil.isEmpty(exporterFilter)) {
+                                if (!exporterFilter.matchesItem(resource, isWhitelist, exporter.isIgnoreNbt())) {
+                                    return false;
+                                }
                             }
 
                             if (ResourceHandlerUtil.isEmpty(importerFilter)) {

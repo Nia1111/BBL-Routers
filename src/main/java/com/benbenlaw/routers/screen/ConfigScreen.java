@@ -40,8 +40,7 @@ public class ConfigScreen extends AbstractContainerScreen<ConfigMenu> {
     private static final long SWITCH_INTERVAL = 600;
 
     public ConfigScreen(ConfigMenu menu, Inventory inventory, Component component) {
-        super(menu, inventory, component);
-        this.imageHeight = 155;
+        super(menu, inventory, component, 176 ,155);
         this.inventoryLabelY = this.imageHeight - 94;
     }
 

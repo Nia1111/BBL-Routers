@@ -1,8 +1,6 @@
 package com.benbenlaw.routers.item;
 
 import com.benbenlaw.routers.Routers;
-import com.benbenlaw.routers.block.RoutersBlocks;
-import com.benbenlaw.utility.item.UtilityItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

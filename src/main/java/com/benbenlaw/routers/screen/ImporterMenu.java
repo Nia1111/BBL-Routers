@@ -65,8 +65,9 @@ public class ImporterMenu extends SimpleAbstractContainerMenu {
         return ItemStack.EMPTY;
     }
 
+
     @Override
-    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+    public void clicked(int slotId, int button, ContainerInput containerInput, Player player) {
         if (slotId >= 0 && slotId < slots.size()) {
             if (this.slots.get(slotId) instanceof FilterSlot filterSlot) {
                 ItemStack carried = this.getCarried();
@@ -92,8 +93,6 @@ public class ImporterMenu extends SimpleAbstractContainerMenu {
                 return;
             }
         }
-        super.clicked(slotId, button, clickType, player);
-
+        super.clicked(slotId, button, containerInput, player);
     }
-
 }

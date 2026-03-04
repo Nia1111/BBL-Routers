@@ -5,8 +5,8 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.110'
-    id 'net.darkhax.curseforgegradle' version '1.1.25'
+    id 'net.neoforged.moddev' version '2.0.140'
+    id 'net.darkhax.curseforgegradle' version '1.1.24'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -23,6 +23,7 @@ repositories {
             includeGroup("curse.maven")
         }
     }
+
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -36,18 +37,10 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-
-
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = project.neo_version
-
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
 
     runs {
         configureEach {
@@ -82,24 +75,11 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
+
     //JEI
-    implementation("mezz.jei:jei-${jei_mc_version}:${jei_version}")
+    implementation("mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}")
     //BBL Core
-    implementation("curse.maven:bblcore-1135181:7540269")
-    //BBL Utility
-    implementation("curse.maven:bbl-opolis-utility-649644:7500814")
-    //Pipez
-    implementation("curse.maven:pipez-443900:7312807")
-    //Flopper
-    implementation("curse.maven:flopper-290404:7407759")
-    //cyclops-core
-    implementation("curse.maven:cyclops-core-232758:7407550")
-    //chunk-loaders
-    implementation("curse.maven:chunk-loaders-402924:7393476")
-    //supermartijn642s-config-lib
-    implementation("curse.maven:supermartijn642s-config-lib-438332:7376963")
-    //supermartijn642s-core-lib
-    implementation("curse.maven:supermartijn642s-core-lib-454372:7426808")
+    implementation("curse.maven:bblcore-1135181:${core_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {

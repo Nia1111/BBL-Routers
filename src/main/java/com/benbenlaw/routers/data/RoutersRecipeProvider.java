@@ -3,8 +3,6 @@ package com.benbenlaw.routers.data;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.item.RoutersItems;
-import com.benbenlaw.utility.Utility;
-import com.benbenlaw.utility.data.UtilityRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
