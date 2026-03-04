@@ -1,9 +1,0 @@
-{
-  "type": "utility:summoning",
-  "below_block": "#minecraft:dirt",
-  "entity": "minecraft:rabbit",
-  "input": {
-    "count": 1,
-    "ingredient": "minecraft:carrot"
-  }
-}

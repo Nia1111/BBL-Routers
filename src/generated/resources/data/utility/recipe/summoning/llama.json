@@ -1,9 +1,0 @@
-{
-  "type": "utility:summoning",
-  "below_block": "#c:stones",
-  "entity": "minecraft:llama",
-  "input": {
-    "count": 1,
-    "ingredient": "minecraft:hay_block"
-  }
-}

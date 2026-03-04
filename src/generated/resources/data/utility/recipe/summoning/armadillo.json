@@ -1,9 +1,0 @@
-{
-  "type": "utility:summoning",
-  "below_block": "#minecraft:dirt",
-  "entity": "minecraft:armadillo",
-  "input": {
-    "count": 1,
-    "ingredient": "minecraft:armadillo_scute"
-  }
-}

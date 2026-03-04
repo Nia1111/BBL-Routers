@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:ingots/iron",
+    "B": "minecraft:paper"
+  },
+  "pattern": [
+    "ABA",
+    "B B",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "routers:blacklist_upgrade"
+  }
+}

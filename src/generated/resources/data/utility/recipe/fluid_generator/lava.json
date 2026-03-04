@@ -1,8 +1,0 @@
-{
-  "type": "utility:fluid_generator",
-  "input": "lava",
-  "output": {
-    "amount": 50,
-    "id": "minecraft:lava"
-  }
-}

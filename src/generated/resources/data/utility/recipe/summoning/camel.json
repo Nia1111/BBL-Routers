@@ -1,9 +1,0 @@
-{
-  "type": "utility:summoning",
-  "below_block": "#minecraft:sand",
-  "entity": "minecraft:camel",
-  "input": {
-    "count": 1,
-    "ingredient": "#minecraft:wool_carpets"
-  }
-}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:buckets",
+    "B": "#c:ingots/netherite",
+    "C": "routers:fluid_upgrade_3"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "routers:fluid_upgrade_4"
+  }
+}

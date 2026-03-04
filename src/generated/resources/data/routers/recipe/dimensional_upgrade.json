@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:ingots/iron",
+    "B": "#c:ingots/gold",
+    "C": "#c:ender_pearls"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "routers:dimensional_upgrade"
+  }
+}

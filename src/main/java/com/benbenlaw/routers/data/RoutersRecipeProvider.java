@@ -33,7 +33,7 @@ public class RoutersRecipeProvider extends RecipeProvider {
 
         @Override
         protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.@NotNull Provider provider, @NotNull RecipeOutput recipeOutput) {
-            return new UtilityRecipeProvider(provider, recipeOutput);
+            return new RoutersRecipeProvider(provider, recipeOutput);
         }
 
         @Override
@@ -44,6 +44,272 @@ public class RoutersRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
+
+        //Exporter
+        shaped(RecipeCategory.MISC, RoutersBlocks.EXPORTER.get())
+                .pattern("ABA")
+                .pattern("B B")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', ItemTags.LOGS)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Importer
+        shaped(RecipeCategory.MISC, RoutersBlocks.IMPORTER.get())
+                .pattern("ABA")
+                .pattern("B B")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', ItemTags.LOGS)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Connector
+        shaped(RecipeCategory.MISC, RoutersItems.CONNECTOR.get())
+                .pattern(" AA")
+                .pattern(" BA")
+                .pattern("A  ")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', Tags.Items.RODS_WOODEN)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Energy
+        shaped(RecipeCategory.MISC, RoutersItems.RF_UPGRADE_1.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.DUSTS_REDSTONE)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .define('C', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.RF_UPGRADE_2.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.DUSTS_REDSTONE)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', RoutersItems.RF_UPGRADE_1.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.RF_UPGRADE_3.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.DUSTS_REDSTONE)
+                .define('B', Tags.Items.GEMS_DIAMOND)
+                .define('C', RoutersItems.RF_UPGRADE_2.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.RF_UPGRADE_4.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.DUSTS_REDSTONE)
+                .define('B', Tags.Items.INGOTS_NETHERITE)
+                .define('C', RoutersItems.RF_UPGRADE_3.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_netherite", has(Items.NETHERITE_INGOT))
+                .save(output);
+
+        //Item
+        shaped(RecipeCategory.MISC, RoutersItems.ITEM_UPGRADE_1.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.CHESTS_WOODEN)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .define('C', Tags.Items.CHESTS_WOODEN)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.ITEM_UPGRADE_2.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.CHESTS_WOODEN)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', RoutersItems.ITEM_UPGRADE_1.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.ITEM_UPGRADE_3.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.CHESTS_WOODEN)
+                .define('B', Tags.Items.GEMS_DIAMOND)
+                .define('C', RoutersItems.ITEM_UPGRADE_2.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.ITEM_UPGRADE_4.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.CHESTS_WOODEN)
+                .define('B', Tags.Items.INGOTS_NETHERITE)
+                .define('C', RoutersItems.ITEM_UPGRADE_3.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_netherite", has(Items.NETHERITE_INGOT))
+                .save(output);
+
+        //Fluid
+        shaped(RecipeCategory.MISC, RoutersItems.FLUID_UPGRADE_1.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.BUCKETS)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .define('C', Tags.Items.BUCKETS)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.FLUID_UPGRADE_2.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.BUCKETS)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', RoutersItems.FLUID_UPGRADE_1.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.FLUID_UPGRADE_3.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.BUCKETS)
+                .define('B', Tags.Items.GEMS_DIAMOND)
+                .define('C', RoutersItems.FLUID_UPGRADE_2.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.FLUID_UPGRADE_4.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.BUCKETS)
+                .define('B', Tags.Items.INGOTS_NETHERITE)
+                .define('C', RoutersItems.FLUID_UPGRADE_3.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_netherite", has(Items.NETHERITE_INGOT))
+                .save(output);
+
+        //Speed
+        shaped(RecipeCategory.MISC, RoutersItems.SPEED_UPGRADE_1.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.GEMS_QUARTZ)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .define('C', Tags.Items.GEMS_QUARTZ)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.SPEED_UPGRADE_2.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.GEMS_QUARTZ)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', RoutersItems.SPEED_UPGRADE_1.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.SPEED_UPGRADE_3.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.GEMS_QUARTZ)
+                .define('B', Tags.Items.GEMS_DIAMOND)
+                .define('C', RoutersItems.SPEED_UPGRADE_2.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, RoutersItems.SPEED_UPGRADE_4.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.GEMS_QUARTZ)
+                .define('B', Tags.Items.INGOTS_NETHERITE)
+                .define('C', RoutersItems.SPEED_UPGRADE_3.get())
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_netherite", has(Items.NETHERITE_INGOT))
+                .save(output);
+
+        //Mod Filter
+        //Tag Filter
+
+        //Round Robin
+        shaped(RecipeCategory.MISC, RoutersItems.ROUND_ROBIN_UPGRADE.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', Tags.Items.GEMS_DIAMOND)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        //Dimensional
+        shaped(RecipeCategory.MISC, RoutersItems.DIMENSIONAL_UPGRADE.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', Tags.Items.INGOTS_GOLD)
+                .define('C', Tags.Items.ENDER_PEARLS)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output);
+
+        //Blacklist
+        shaped(RecipeCategory.MISC, RoutersItems.BLACKLIST_UPGRADE.get())
+                .pattern("ABA")
+                .pattern("B B")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', Items.PAPER)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Ignore NBT
+        shaped(RecipeCategory.MISC, RoutersItems.IGNORE_NBT_UPGRADE.get())
+                .pattern("ABA")
+                .pattern("B B")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_GOLD)
+                .define('B', Items.PAPER)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(output);
+
+
+
+
 
     }
 }

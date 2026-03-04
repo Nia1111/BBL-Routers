@@ -34,12 +34,17 @@ public class RoutersLangProvider extends LanguageProvider {
         add("item.routers.fluid_upgrade_3", "Fluid Upgrade III");
         add("item.routers.fluid_upgrade_4", "Fluid Upgrade IV");
 
+        add("item.routers.speed_upgrade_1", "Speed Upgrade I");
+        add("item.routers.speed_upgrade_2", "Speed Upgrade II");
+        add("item.routers.speed_upgrade_3", "Speed Upgrade III");
+        add("item.routers.speed_upgrade_4", "Speed Upgrade IV");
+
         add("item.routers.round_robin_upgrade", "Round Robin Upgrade");
         add("item.routers.dimensional_upgrade", "Dimensional Upgrade");
         add("item.routers.blacklist_upgrade", "Blacklist Upgrade");
         add("item.routers.ignore_nbt_upgrade", "Ignore NBT/Components Upgrade");
-        add("item.routers.mod_filter_upgrade", "Mod Filter Upgrade (Not Yet Implemented)");
-        add("item.routers.tag_filter_upgrade", "Tag Filter Upgrade (Not Yet Implemented)");
+        add("item.routers.mod_filter", "Mod Filter Upgrade (Not Yet Implemented)");
+        add("item.routers.tag_filter", "Tag Filter Upgrade (Not Yet Implemented)");
 
 
         //Blocks

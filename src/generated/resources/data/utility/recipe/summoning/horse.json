@@ -1,9 +1,0 @@
-{
-  "type": "utility:summoning",
-  "below_block": "#minecraft:dirt",
-  "entity": "minecraft:horse",
-  "input": {
-    "count": 1,
-    "ingredient": "minecraft:hay_block"
-  }
-}

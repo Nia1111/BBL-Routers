@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:gems/quartz",
+    "B": "#c:gems/diamond",
+    "C": "routers:speed_upgrade_2"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "routers:speed_upgrade_3"
+  }
+}

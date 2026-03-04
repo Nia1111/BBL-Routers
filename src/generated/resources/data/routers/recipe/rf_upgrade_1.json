@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:dusts/redstone",
+    "B": "#c:ingots/iron",
+    "C": "#c:storage_blocks/redstone"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "routers:rf_upgrade_1"
+  }
+}

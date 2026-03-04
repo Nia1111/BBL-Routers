@@ -34,6 +34,4 @@ public class DataGenerators {
         generator.addProvider(true, new RoutersRecipeProvider.Runner (packOutput, lookupProvider));
 
     }
-
-
 }
