@@ -303,13 +303,26 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         return filterFluidHandler;
     }
 
-    public void addImporterPosition(GlobalPos clickedPos) {
-        if (importerPositions.contains(clickedPos)) {
-            importerPositions.remove(clickedPos);
+    public boolean toggleImporterPosition(GlobalPos clickedPos) {
+        GlobalPos existing = null;
+
+        for (GlobalPos pos : importerPositions) {
+            if (pos.dimension().equals(clickedPos.dimension()) &&
+                    pos.pos().equals(clickedPos.pos())) {
+                existing = pos;
+                break;
+            }
+        }
+
+        if (existing != null) {
+            importerPositions.remove(existing);
+            setChanged();
+            return false; // disconnected
         } else {
             importerPositions.add(clickedPos);
+            setChanged();
+            return true; // connected
         }
-        setChanged();
     }
 
     public List<GlobalPos> getImporterPositions() {
@@ -364,10 +377,10 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         filterItemHandler.deserialize(input.childOrEmpty("itemFilter"));
         filterFluidHandler.deserialize(input.childOrEmpty("fluidFilter"));
 
-        input.getBooleanOr("isRoundRobin", false);
-        input.getBooleanOr("canDoDimensionalTravel", false);
-        input.getBooleanOr("ignoreNbt", false);
-        input.getBooleanOr("isBlacklist", false);
+        isRoundRobin = input.getBooleanOr("isRoundRobin", false);
+        canDoDimensionalTravel = input.getBooleanOr("canDoDimensionalTravel", false);
+        ignoreNbt = input.getBooleanOr("ignoreNbt", false);
+        isBlacklist = input.getBooleanOr("isBlacklist", false);
 
         importerPositions = new ArrayList<>();
 

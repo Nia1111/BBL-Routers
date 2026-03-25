@@ -75,6 +75,11 @@ public class RoutersLangProvider extends LanguageProvider {
         add("tooltip.routers.menu.energy", "Energy");
         add("tooltip.routers.button.energy", "Energy");
 
+        add("tooltip.routers.button.back", "Back");
+
+        add("tooltip.routers.empty_item_filter_slot", "Empty Item Filter Slot");
+        add("tooltip.routers.empty_fluid_filter_slot", "Empty Fluid Filter Slot");
+
 
 
         //Client Messages
@@ -84,6 +89,7 @@ public class RoutersLangProvider extends LanguageProvider {
         add("message.routers.connected_importer_to_exporter", "Connected Importer to Exporter at %s");
         add("message.routers.not_loaded", "Area not loaded to connect routers!");
         add("message.routers.no_exporter_importer_selected", "No Exporter / Importer selected. Shift right click to set main connection !");
+        add("message.routers.disconnected_exporter_from_importer", "Unlinked Exporter from Importer!");
 
 
     }

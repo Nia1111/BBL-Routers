@@ -9,7 +9,7 @@ import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
 import com.benbenlaw.routers.networking.packets.OpenMenu;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.input.InputWithModifiers;
@@ -37,7 +37,7 @@ public class FilterButton extends Button {
     }
 
     @Override
-    protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         boolean hovered = this.isHovered();
         Identifier currentTexture = hovered ? Routers.identifier(type.getTextureHover()) : Routers.identifier(type.getTexture());
 

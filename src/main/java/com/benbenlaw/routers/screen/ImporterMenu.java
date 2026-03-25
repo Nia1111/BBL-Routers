@@ -48,7 +48,7 @@ public class ImporterMenu extends SimpleAbstractContainerMenu {
 
         for (int i = 0; i < 9; i++) {
             this.addSlot(new FilterSlot(blockEntity.getFilterItemHandler(), blockEntity.getFilterItemHandler()::set,
-                    i, 8 + i * 18, 23));
+                    i, 8 + i * 18, 18));
         }
 
         SimpleContainer fluidFilterContainer = new SimpleContainer(9);
@@ -64,6 +64,7 @@ public class ImporterMenu extends SimpleAbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
+
 
 
     @Override

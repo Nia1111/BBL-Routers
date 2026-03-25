@@ -8,7 +8,7 @@ import com.benbenlaw.routers.screen.util.button.BackButton;
 import com.benbenlaw.routers.screen.util.button.ButtonType;
 import com.benbenlaw.routers.screen.util.button.FilterButton;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -39,7 +39,9 @@ public class FilterScreen extends AbstractContainerScreen<FilterMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -53,12 +55,12 @@ public class FilterScreen extends AbstractContainerScreen<FilterMenu> {
 
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
 
         if (menu.buttonType == ButtonType.FLUID_FILTER) {
             for (int i = 0; i < 9; i++) {
@@ -73,17 +75,14 @@ public class FilterScreen extends AbstractContainerScreen<FilterMenu> {
             }
         }
 
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        renderTooltip(guiGraphics, mouseX, mouseY);
-
         if (menu.buttonType == ButtonType.FLUID_FILTER) {
             for (int i = 0; i < menu.blockEntity.getFilterFluidHandler().size(); i++) {
 
-                FluidRenderingUtils.renderFluidStackTooltip(guiGraphics, menu.blockEntity.getFilterFluidHandler().getFilter(i), x + 8 + (i * 18), y + 36, 16, 16, mouseX, mouseY);
+                FluidRenderingUtils.renderFluidStackTooltip(guiGraphics, menu.blockEntity.getFilterFluidHandler().getFilter(i) ,menu.blockEntity.getFilterFluidHandler(), i,  x + 8 + (i * 18), y + 36, 16, 16, mouseX, mouseY);
             }
             for (int i = 9; i < 18; i++) {
 
-                FluidRenderingUtils.renderFluidStackTooltip(guiGraphics, menu.blockEntity.getFilterFluidHandler().getFilter(i), x + 8 + ((i - 9) * 18), y + 54, 16, 16, mouseX, mouseY);
+                FluidRenderingUtils.renderFluidStackTooltip(guiGraphics, menu.blockEntity.getFilterFluidHandler().getFilter(i), menu.blockEntity.getFilterFluidHandler(), i, x + 8 + ((i - 9) * 18), y + 54, 16, 16, mouseX, mouseY);
 
             }
         }

@@ -6,7 +6,7 @@ import com.benbenlaw.routers.item.RoutersDataComponents;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
@@ -65,7 +65,9 @@ public class ConfigScreen extends AbstractContainerScreen<ConfigMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = leftPos;
         int y = topPos;
 
@@ -80,16 +82,14 @@ public class ConfigScreen extends AbstractContainerScreen<ConfigMenu> {
             }
 
             ItemStack stackToRender = previewStacks.get(previewIndex);
-            guiGraphics.renderItem(stackToRender, leftPos + 8, topPos + 29);
+            guiGraphics.item(stackToRender, leftPos + 8, topPos + 29);
         }
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        renderTooltip(guiGraphics, mouseX, mouseY);
-        this.searchBox.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+        this.searchBox.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     public boolean charTyped(CharacterEvent event) {

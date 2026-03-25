@@ -3,9 +3,6 @@ package com.benbenlaw.routers.event;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
-import com.benbenlaw.routers.block.entity.ImporterBlockEntity;
-import com.benbenlaw.routers.item.RoutersItems;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +15,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = Routers.MOD_ID)
 public class ConnectionsEvent {
@@ -48,16 +44,17 @@ public class ConnectionsEvent {
                 if (blockState.is(RoutersBlocks.EXPORTER)) {
                     mainExporterPos = clickedPos;
                     mainImporterPos = null;
-                    player.displayClientMessage(
-                            Component.translatable("message.routers.exporter_selected", clickedPosStr),
-                            true
+
+                    player.sendSystemMessage(
+                            Component.translatable("message.routers.exporter_selected", clickedPosStr)
                     );
+
                 } else if (blockState.is(RoutersBlocks.IMPORTER)) {
                     mainImporterPos = clickedPos;
                     mainExporterPos = null;
-                    player.displayClientMessage(
-                            Component.translatable("message.routers.importer_selected", clickedPosStr),
-                            true
+
+                    player.sendSystemMessage(
+                            Component.translatable("message.routers.importer_selected", clickedPosStr)
                     );
                 }
 
@@ -76,9 +73,8 @@ public class ConnectionsEvent {
                 return;
             }
 
-            player.displayClientMessage(
-                    Component.translatable("message.routers.no_exporter_importer_selected"),
-                    true
+            player.sendSystemMessage(
+                    Component.translatable("message.routers.no_exporter_importer_selected")
             );
         }
     }
@@ -92,27 +88,35 @@ public class ConnectionsEvent {
         ServerLevel exporterLevel = level.getServer().getLevel(exporterPos.dimension());
 
         if (exporterLevel == null || !exporterLevel.isLoaded(exporterPos.pos())) {
-            player.displayClientMessage(
-                    Component.translatable("message.routers.not_loaded"),
-                    true
+            player.sendSystemMessage(
+                    Component.translatable("message.routers.not_loaded")
             );
             return;
         }
 
         if (!(exporterLevel.getBlockEntity(exporterPos.pos()) instanceof ExporterBlockEntity exporter)) {
-            player.displayClientMessage(
-                    Component.translatable("message.routers.not_loaded"),
-                    true
+            player.sendSystemMessage(
+                    Component.translatable("message.routers.not_loaded")
             );
             return;
         }
 
-        exporter.addImporterPosition(importerPos);
+        boolean connected = exporter.toggleImporterPosition(importerPos);
 
-        player.displayClientMessage(
-                Component.translatable("message.routers.connected_exporter_to_importer",
-                        importerPos.pos().toShortString()),
-                true
-        );
+        if (connected) {
+            player.sendSystemMessage(
+                    Component.translatable(
+                            "message.routers.connected_exporter_to_importer",
+                            importerPos.pos().toShortString()
+                    )
+            );
+        } else {
+            player.sendSystemMessage(
+                    Component.translatable(
+                            "message.routers.disconnected_exporter_from_importer",
+                            importerPos.pos().toShortString()
+                    )
+            );
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.benbenlaw.routers.screen.util.MousePositionManagerUtil;
 import com.benbenlaw.routers.screen.util.button.ButtonType;
 import com.benbenlaw.routers.screen.util.button.FilterButton;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
@@ -97,15 +97,15 @@ public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         for (FilterButton button : filterButtons.values()) {
             if (button.isHovered()) {
                 Component buttonText = Component.translatable(button.getType().getButtonTooltip());
 
                 List<ClientTooltipComponent> tooltipComponents = List.of(ClientTooltipComponent.create(buttonText.getVisualOrderText()));
-                guiGraphics.renderTooltip(
+                guiGraphics.tooltip(
                         Minecraft.getInstance().font,
                         tooltipComponents,
                         mouseX,
@@ -120,7 +120,9 @@ public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
 
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -129,13 +131,10 @@ public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
 
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
 
         updateButtons();
-
-        renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override

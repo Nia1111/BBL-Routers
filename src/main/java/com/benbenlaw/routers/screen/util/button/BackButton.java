@@ -5,7 +5,7 @@ import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
 import com.benbenlaw.routers.networking.packets.BackMenu;
 import com.benbenlaw.routers.networking.packets.OpenMenu;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
@@ -29,7 +29,7 @@ public class BackButton extends Button {
     }
 
     @Override
-    protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         boolean hovered = this.isHovered();
         Identifier currentTexture = hovered ? Routers.identifier("back_hover") : Routers.identifier("back");
 
@@ -39,7 +39,7 @@ public class BackButton extends Button {
             Component buttonText = Component.translatable("tooltip.routers.button.back");
 
             List<ClientTooltipComponent> tooltipComponents = List.of(ClientTooltipComponent.create(buttonText.getVisualOrderText()));
-            guiGraphics.renderTooltip(
+            guiGraphics.tooltip(
                     Minecraft.getInstance().font,
                     tooltipComponents,
                     mouseX,
