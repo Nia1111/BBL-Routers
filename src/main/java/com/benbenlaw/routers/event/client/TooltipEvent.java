@@ -1,19 +1,20 @@
-package com.benbenlaw.routers.event;
+package com.benbenlaw.routers.event.client;
 
 import com.benbenlaw.core.util.TooltipUtil;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.config.StartupConfig;
+import com.benbenlaw.routers.item.RoutersDataComponents;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.item.UpgradeItem;
 import com.benbenlaw.routers.util.RoutersTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -32,7 +33,7 @@ public class TooltipEvent {
 
         addShiftTooltip(stack, event, RoutersBlocks.EXPORTER.get().asItem(), "tooltip.routers.exporter",
                 String.valueOf(StartupConfig.defaultSpeedPerOperation.get()));
-        TooltipUtil.addShiftTooltip(stack, event, RoutersBlocks.IMPORTER.get().asItem(), "tooltip.routers.importer");
+
         TooltipUtil.addShiftTooltip(stack, event, RoutersItems.CONNECTOR.get(), "tooltip.routers.connector");
 
         addShiftTooltip(stack, event, RoutersTags.Items.ITEM_UPGRADES, "tooltip.routers.item_upgrade", moreInfo);
@@ -45,7 +46,20 @@ public class TooltipEvent {
         TooltipUtil.addShiftTooltip(stack, event, RoutersItems.BLACKLIST_UPGRADE.get(), "tooltip.routers.blacklist_upgrade");
         TooltipUtil.addShiftTooltip(stack, event, RoutersItems.IGNORE_NBT_UPGRADE.get(), "tooltip.routers.ignore_nbt_upgrade");
 
+        //Connectors
+        GlobalPos exporterPos = stack.get(RoutersDataComponents.EXPORTER_POSITION.value());
+        GlobalPos importerPos = stack.get(RoutersDataComponents.IMPORTER_POSITION.value());
 
+        if (exporterPos != null) {
+            if (Minecraft.getInstance().hasShiftDown()) {
+                event.getToolTip().add(Component.translatable("tooltip.routers.wrench_exporter", exporterPos.pos().toShortString()).withStyle(ChatFormatting.BLUE));
+            }
+        }
+        if (importerPos != null) {
+            if (Minecraft.getInstance().hasShiftDown()) {
+                event.getToolTip().add(Component.translatable("tooltip.routers.wrench_importer", importerPos.pos().toShortString()).withStyle(ChatFormatting.BLUE));
+            }
+        }
 
     }
 

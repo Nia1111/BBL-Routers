@@ -2,7 +2,9 @@ package com.benbenlaw.routers.event;
 
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
+import com.benbenlaw.routers.block.custom.RouterBlock;
 import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
+import com.benbenlaw.routers.item.RoutersDataComponents;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -19,43 +21,40 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @EventBusSubscriber(modid = Routers.MOD_ID)
 public class ConnectionsEvent {
 
-    public static GlobalPos mainExporterPos;
-    public static GlobalPos mainImporterPos;
-
     @SubscribeEvent
     public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event) {
 
-        ItemStack heldItem = event.getItemStack();
-        Player player = event.getEntity();
         Level level = event.getLevel();
-
-        if (level.isClientSide()) return;
-
         GlobalPos clickedPos = GlobalPos.of(level.dimension(), event.getPos());
         BlockState blockState = level.getBlockState(clickedPos.pos());
 
+        if (!(blockState.getBlock() instanceof RouterBlock)) return;
+        if (level.isClientSide()) return;
+
+        ItemStack heldItem = event.getItemStack();
+        Player player = event.getEntity();
         String clickedPosStr = clickedPos.pos().toShortString();
 
         if (heldItem.is(Tags.Items.TOOLS_WRENCH)) {
+
+           GlobalPos mainExporterPos = heldItem.get(RoutersDataComponents.EXPORTER_POSITION.value());
+           GlobalPos mainImporterPos = heldItem.get(RoutersDataComponents.IMPORTER_POSITION.value());
+
 
             if (player.isShiftKeyDown()) {
                 player.swing(event.getHand(), true);
 
                 if (blockState.is(RoutersBlocks.EXPORTER)) {
-                    mainExporterPos = clickedPos;
-                    mainImporterPos = null;
-
                     player.sendSystemMessage(
                             Component.translatable("message.routers.exporter_selected", clickedPosStr)
                     );
+                    heldItem.set(RoutersDataComponents.EXPORTER_POSITION, clickedPos);
 
                 } else if (blockState.is(RoutersBlocks.IMPORTER)) {
-                    mainImporterPos = clickedPos;
-                    mainExporterPos = null;
-
                     player.sendSystemMessage(
                             Component.translatable("message.routers.importer_selected", clickedPosStr)
                     );
+                    heldItem.set(RoutersDataComponents.IMPORTER_POSITION, clickedPos);
                 }
 
                 event.setCanceled(true);

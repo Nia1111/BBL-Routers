@@ -51,5 +51,7 @@
   "tooltip.routers.menu.fluid": "Fluid Filter",
   "tooltip.routers.menu.item": "Item Filter",
   "tooltip.routers.round_robin_upgrade": "After each operation, the Exporter will try to insert into the next connected Importer",
-  "tooltip.routers.speed_upgrade": "Allows the Extractor to extract every %s ticks"
+  "tooltip.routers.speed_upgrade": "Allows the Extractor to extract every %s ticks",
+  "tooltip.routers.wrench_exporter": "Linked Exporter at %s",
+  "tooltip.routers.wrench_importer": "Linked Importer at %s"
 }

@@ -80,6 +80,9 @@ public class RoutersLangProvider extends LanguageProvider {
         add("tooltip.routers.empty_item_filter_slot", "Empty Item Filter Slot");
         add("tooltip.routers.empty_fluid_filter_slot", "Empty Fluid Filter Slot");
 
+        add("tooltip.routers.wrench_exporter", "Linked Exporter at %s");
+        add("tooltip.routers.wrench_importer", "Linked Importer at %s");
+
 
 
         //Client Messages
