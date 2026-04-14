@@ -956,15 +956,15 @@ public class ExporterBlockEntity extends BlockEntity implements MenuProvider, IA
         boolean allowCrossDim = hasUpgrade(RoutersTags.Items.DIMENSIONAL_UPGRADES);
 
         if (allowCrossDim) {
-            // Search across all loaded dimensions
             for (ServerLevel candidate : server.getAllLevels()) {
+                if (!candidate.isLoaded(pos)) continue;
                 BlockEntity be = candidate.getBlockEntity(pos);
                 if (be instanceof ImporterBlockEntity importer) {
-                    // Verify stored importer dimension matches candidate world
                     String importerDim = importer.getDimension();
                     String candidateDim = candidate.dimension().location().toString();
+
                     if (importerDim.equals(candidateDim)) {
-                        importerCache.put(pos, importer); // cache result
+                        importerCache.put(pos, importer);
                         return importer;
                     }
                 }
