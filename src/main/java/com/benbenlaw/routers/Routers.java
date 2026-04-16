@@ -2,15 +2,13 @@ package com.benbenlaw.routers;
 
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.RoutersBlocks;
+import com.benbenlaw.routers.block.RoutersCapabilities;
 import com.benbenlaw.routers.config.StartupConfig;
 import com.benbenlaw.routers.item.RoutersCreativeTab;
 import com.benbenlaw.routers.item.RoutersDataComponents;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.networking.RoutersNetworking;
-import com.benbenlaw.routers.screen.ConfigScreen;
-import com.benbenlaw.routers.screen.ExporterScreen;
-import com.benbenlaw.routers.screen.ImporterScreen;
-import com.benbenlaw.routers.screen.RoutersMenuTypes;
+import com.benbenlaw.routers.screen.*;
 import com.benbenlaw.routers.screen.upgrade.FilterScreen;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
@@ -21,6 +19,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.apache.logging.log4j.LogManager;
@@ -41,6 +40,7 @@ public class Routers {
         RoutersMenuTypes.MENUS.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::registerCapabilities);
 
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.STARTUP, StartupConfig.SPEC, "bbl/routers-startup.toml");
     }
@@ -57,11 +57,15 @@ public class Routers {
             event.register(RoutersMenuTypes.EXPORTER_MENU.get(), ExporterScreen::new);
             event.register(RoutersMenuTypes.IMPORTER_MENU.get(), ImporterScreen::new);
             event.register(RoutersMenuTypes.CONFIG_MENU.get(), ConfigScreen::new);
-
             event.register(RoutersMenuTypes.FILTER_MENU.get(), FilterScreen::new);
+            event.register(RoutersMenuTypes.DISTRIBUTOR_MENU.get(), DistributorScreen::new);
 
 
         }
+    }
+
+    public void registerCapabilities(RegisterCapabilitiesEvent event) {
+        RoutersCapabilities.registerCapabilities(event);
     }
 
     public static Identifier identifier(String path) {

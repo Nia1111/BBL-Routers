@@ -140,7 +140,6 @@ public class ExporterItemTransfer {
 
         if (importerLevel == null) return false;
 
-        // Check dimensional upgrade
         if (!exporterLevel.dimension().equals(importerPos.dimension()) && !exporter.canDoDimensionalTravel()) {
             return false;
         }
@@ -174,7 +173,6 @@ public class ExporterItemTransfer {
                         resource -> {
                             boolean isWhitelist = !exporter.isBlacklist();
 
-                            // If exporter filter is NOT empty, enforce it
                             if (!ResourceHandlerUtil.isEmpty(exporterFilter)) {
                                 if (!exporterFilter.matchesItem(resource, isWhitelist, exporter.isIgnoreNbt())) {
                                     return false;

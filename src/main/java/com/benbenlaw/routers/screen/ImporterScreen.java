@@ -28,8 +28,7 @@ import java.util.List;
 
 public class ImporterScreen extends AbstractContainerScreen<ImporterMenu> {
 
-    private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Routers.MOD_ID, "textures/gui/importer_gui.png");
+    private static final Identifier TEXTURE = Routers.identifier("textures/gui/importer_gui.png");
 
     public ImporterScreen(ImporterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);

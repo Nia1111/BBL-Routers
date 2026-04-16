@@ -65,6 +65,17 @@ public class RoutersRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
 
+        //Distributor
+        shaped(RecipeCategory.MISC, RoutersBlocks.DISTRIBUTOR.get())
+                .pattern("ABA")
+                .pattern("B B")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_GOLD)
+                .define('B', ItemTags.LOGS)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
         //Connector
         shaped(RecipeCategory.MISC, RoutersItems.CONNECTOR.get())
                 .pattern(" AA")

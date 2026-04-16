@@ -22,8 +22,7 @@ import java.util.Map;
 
 public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
 
-    private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Routers.MOD_ID, "textures/gui/exporter_gui.png");
+    private static final Identifier TEXTURE = Routers.identifier("textures/gui/exporter_gui.png");
 
     private final Map<ButtonType, FilterButton> filterButtons = new HashMap<>();
 

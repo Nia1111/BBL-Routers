@@ -30,6 +30,10 @@ public class RoutersDataComponents {
             COMPONENTS.register("mod_filter", () ->
                     DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY =
+            COMPONENTS.register("energy", () ->
+                    DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT).build());
+
 
 
 }

@@ -19,10 +19,10 @@ public class RoutersLangProvider extends LanguageProvider {
         //Items
         add("item.routers.connector", "Connector");
 
-        add("item.routers.rf_upgrade_1", "RF Upgrade I");
-        add("item.routers.rf_upgrade_2", "RF Upgrade II");
-        add("item.routers.rf_upgrade_3", "RF Upgrade III");
-        add("item.routers.rf_upgrade_4", "RF Upgrade IV");
+        add("item.routers.rf_upgrade_1", "Energy Upgrade I");
+        add("item.routers.rf_upgrade_2", "Energy Upgrade II");
+        add("item.routers.rf_upgrade_3", "Energy Upgrade III");
+        add("item.routers.rf_upgrade_4", "Energy Upgrade IV");
 
         add("item.routers.item_upgrade_1", "Item Upgrade I");
         add("item.routers.item_upgrade_2", "Item Upgrade II");
@@ -50,15 +50,17 @@ public class RoutersLangProvider extends LanguageProvider {
         //Blocks
         add("block.routers.exporter", "Exporter");
         add("block.routers.importer", "Importer");
+        add("block.routers.distributor", "Distributor (BETA)");
 
         //Tooltips
         add("tooltip.routers.connector", "Shift Right Click to set Exporter / Importer target. Right Click to connect to target");
         add("tooltip.routers.exporter", "Exports resources from a connected block to Importer, Exporters extract every %s ticks");
         add("tooltip.routers.importer", "Receives resources from connected Exporters");
+        add("tooltip.routers.distributor", "Distributes energy from this to other energy receiving blocks in the area");
 
         add("tooltip.routers.item_upgrade", "Allows the Extraction of Items from an Exporter at %s Per Operation");
         add("tooltip.routers.fluid_upgrade", "Allows the Extraction of Fluids from an Exporter at %smb Per Operation");
-        add("tooltip.routers.energy_upgrade", "Allows the Extraction of Energy from an Exporter at %sRF Per Tick");
+        add("tooltip.routers.energy_upgrade", "Allows the Extraction of Energy from an Exporter at %sRF Per Operation");
         add("tooltip.routers.speed_upgrade", "Allows the Extractor to extract every %s ticks");
 
         add("tooltip.routers.round_robin_upgrade", "After each operation, the Exporter will try to insert into the next connected Importer");

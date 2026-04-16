@@ -1,6 +1,7 @@
 package com.benbenlaw.routers.block;
 
 import com.benbenlaw.routers.Routers;
+import com.benbenlaw.routers.block.custom.DistributorBlock;
 import com.benbenlaw.routers.block.custom.ExporterBlock;
 import com.benbenlaw.routers.block.custom.ImporterBlock;
 import com.benbenlaw.routers.item.RoutersItems;
@@ -27,6 +28,10 @@ public class RoutersBlocks {
     public static final DeferredBlock<Block> EXPORTER = registerBlock("exporter",
             () -> new ExporterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
                     .noOcclusion().setId(createID("exporter"))));
+
+    public static final DeferredBlock<Block> DISTRIBUTOR = registerBlock("distributor",
+            () -> new DistributorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+                    .noOcclusion().setId(createID("distributor"))));
 
 
 

@@ -8,6 +8,8 @@ public class StartupConfig {
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
 
+    public static final ModConfigSpec.ConfigValue<Integer> distributorRange;
+
     public static final ModConfigSpec.ConfigValue<Integer> RFPerTick1;
     public static final ModConfigSpec.ConfigValue<Integer> RFPerTick2;
     public static final ModConfigSpec.ConfigValue<Integer> RFPerTick3;
@@ -44,23 +46,31 @@ public class StartupConfig {
 
 
     static {
+
+        BUILDER.comment("Distributor").push("Distributor");
+
+        distributorRange = BUILDER
+                .comment("The range of the distributor in blocks.")
+                .defineInRange("Distributor Range", 10, 1, 64);
+
+
         BUILDER.comment("Routers Config").push("RF Upgrades");
 
         RFPerTick1 = BUILDER
                 .comment("The maximum RF per tick that tier 1 can provide.")
-                .defineInRange("RF Per Operation 1",  10, 1, Integer.MAX_VALUE);
+                .defineInRange("RF Per Operation 1",  800, 1, Integer.MAX_VALUE);
 
         RFPerTick2 = BUILDER
                 .comment("The maximum RF per tick that tier 2 can provide.")
-                .defineInRange("RF Per Operation 2", 240, 1, Integer.MAX_VALUE);
+                .defineInRange("RF Per Operation 2", 32000, 1, Integer.MAX_VALUE);
 
         RFPerTick3 = BUILDER
                 .comment("The maximum RF per tick that tier 3 can provide.")
-                .defineInRange("RF Per Operation 3", 12000, 1, Integer.MAX_VALUE);
+                .defineInRange("RF Per Operation 3", 64000, 1, Integer.MAX_VALUE);
 
         RFPerTick4 = BUILDER
                 .comment("The maximum RF per tick that tier 4 can provide.")
-                .defineInRange("RF Per Operation 4", 50000, 1, Integer.MAX_VALUE);
+                .defineInRange("RF Per Operation 4", 128000, 1, Integer.MAX_VALUE);
 
         BUILDER.pop();
 

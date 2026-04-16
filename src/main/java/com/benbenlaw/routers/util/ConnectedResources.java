@@ -6,6 +6,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 
@@ -34,6 +35,9 @@ public class ConnectedResources {
 
     public Optional<ResourceHandler<FluidResource>> getFluidHandler(Level level, BlockPos pos, Direction side) {
         return Optional.ofNullable(level.getCapability(Capabilities.Fluid.BLOCK, pos, side));
+    }
+    public Optional<EnergyHandler> getEnergyHandler(Level level, BlockPos pos, Direction side) {
+        return Optional.ofNullable(level.getCapability(Capabilities.Energy.BLOCK, pos, side));
     }
 
 

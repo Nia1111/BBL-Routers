@@ -130,7 +130,6 @@ public class ExporterFluidTransfer {
         ServerLevel importerLevel = server.getLevel(importerPos.dimension());
         if (importerLevel == null) return false;
 
-        // Dimensional travel check
         if (!importerLevel.dimension().equals(exporterLevel.dimension()) && !exporter.canDoDimensionalTravel()) {
             return false;
         }

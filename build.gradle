@@ -80,6 +80,8 @@ dependencies {
     implementation("curse.maven:bblcore-1135181:${core_version}")
     //Pipez
     implementation("curse.maven:pipez-443900:7859957")
+    //Ender IO
+    runtimeOnly("curse.maven:ender-io-64578:7932315")
 }
 
 tasks.withType(ProcessResources).configureEach {

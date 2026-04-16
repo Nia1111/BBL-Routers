@@ -9,6 +9,7 @@ import com.benbenlaw.routers.block.custom.RouterBlock;
 import com.benbenlaw.routers.config.StartupConfig;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.item.UpgradeItem;
+import com.benbenlaw.routers.logic.ExporterEnergyTransfer;
 import com.benbenlaw.routers.logic.ExporterFluidTransfer;
 import com.benbenlaw.routers.logic.ExporterItemTransfer;
 import com.benbenlaw.routers.screen.ExporterMenu;
@@ -19,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
@@ -193,6 +193,9 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         if (hasCorrectUpgrade(RoutersTags.Items.FLUID_UPGRADES)) {
             handleFluids();
         }
+        if (hasCorrectUpgrade(RoutersTags.Items.RF_UPGRADES)) {
+            handleEnergy();
+        }
 
     }
 
@@ -249,6 +252,24 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         }
     }
 
+    public void handleEnergy() {
+        int newIndex = ExporterEnergyTransfer.transferEnergy(
+                (ServerLevel) level,
+                this,
+                worldPosition,
+                connectedResources,
+                importerPositions,
+                isRoundRobin,
+                lastImporterIndex,
+                getEnergyValue()
+        );
+
+        if (newIndex != lastImporterIndex) {
+            lastImporterIndex = newIndex;
+            setChanged();
+        }
+    }
+
     public int getUpgradeValue() {
         int value = 0;
 
@@ -274,6 +295,21 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
             if (stack.isEmpty()) continue;
 
             if (stack.is(RoutersTags.Items.FLUID_UPGRADES) && stack.getItem() instanceof UpgradeItem upgrade) {
+                value = upgrade.getExtractAmount();
+            }
+        }
+
+        return value;
+    }
+
+    public int getEnergyValue() {
+        int value = 0;
+
+        for (int i = 0; i < upgradeItemHandler.size(); i++) {
+            ItemStack stack = upgradeItemHandler.getResource(i).toStack();
+            if (stack.isEmpty()) continue;
+
+            if (stack.is(RoutersTags.Items.RF_UPGRADES) && stack.getItem() instanceof UpgradeItem upgrade) {
                 value = upgrade.getExtractAmount();
             }
         }

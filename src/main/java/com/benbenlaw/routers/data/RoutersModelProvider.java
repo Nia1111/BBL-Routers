@@ -59,7 +59,8 @@ public class RoutersModelProvider extends ModelProvider {
     protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
         return RoutersBlocks.BLOCKS.getEntries().stream().filter(x ->
                 !x.is(RoutersBlocks.EXPORTER.getId()) &&
-                !x.is(RoutersBlocks.IMPORTER.getId())
+                !x.is(RoutersBlocks.IMPORTER.getId()) &&
+                !x.is(RoutersBlocks.DISTRIBUTOR.getId())
         );
     }
 
