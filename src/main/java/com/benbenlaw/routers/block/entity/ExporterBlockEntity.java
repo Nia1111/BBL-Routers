@@ -361,9 +361,6 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         }
     }
 
-    public List<GlobalPos> getImporterPositions() {
-        return importerPositions;
-    }
 
     public boolean hasUpgrade(ButtonType type) {
         for (int i = 0; i < upgradeItemHandler.size(); i++) {

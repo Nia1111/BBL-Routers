@@ -4,11 +4,12 @@
   "group": "routers",
   "key": {
     "A": "#c:ingots/gold",
-    "B": "#minecraft:logs"
+    "B": "#minecraft:logs",
+    "C": "routers:importer"
   },
   "pattern": [
     "ABA",
-    "B B",
+    "BCB",
     "ABA"
   ],
   "result": {

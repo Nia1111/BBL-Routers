@@ -4,11 +4,12 @@
   "group": "routers",
   "key": {
     "A": "#c:ingots/iron",
-    "B": "#minecraft:logs"
+    "B": "#minecraft:logs",
+    "C": "minecraft:hopper"
   },
   "pattern": [
     "ABA",
-    "B B",
+    "BCB",
     "ABA"
   ],
   "result": {

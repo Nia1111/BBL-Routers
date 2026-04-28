@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-16T19:18:13.4206643	routers Recipes
+// 26.1.2	2026-04-28T15:06:00.1124982	routers Recipes
 c83d7bb9c0e841e1035a59059e9084e1af7ac9d9 data/routers/advancement/recipes/misc/blacklist_upgrade.json
 f9410a2246a5b4606d8e5c007d1a6b2d8101e224 data/routers/advancement/recipes/misc/connector.json
 4a3e636d9be4eb25ea287ddec197dcf1d9a47850 data/routers/advancement/recipes/misc/dimensional_upgrade.json
@@ -26,14 +26,14 @@ c8f59a76e58d908fa609e39495a5914562b5b398 data/routers/advancement/recipes/misc/s
 a46fdd042d02c3845110bcec54d18e03eddc29f2 data/routers/recipe/blacklist_upgrade.json
 fe9891a431ca49f9f884394b82b233c09c5a6451 data/routers/recipe/connector.json
 78471f0ac7efdcc7e1560624670537a24fa28695 data/routers/recipe/dimensional_upgrade.json
-056f31186189065fc977747ff7afb8d0fface814 data/routers/recipe/distributor.json
-18910752f5abcb0c83c6cd75ca3bfe5d0f9fbc06 data/routers/recipe/exporter.json
+4b7cc737027752571b630dff43fd2f4b9a626cbb data/routers/recipe/distributor.json
+e2e68639a752be9139351d05fa5cbc96557f2ebb data/routers/recipe/exporter.json
 633f422ed851a1b32bcdbcd668e962d297d8cd44 data/routers/recipe/fluid_upgrade_1.json
 c00a517d820645a91878e996280ea2e9d1af3b37 data/routers/recipe/fluid_upgrade_2.json
 856a47ba56dff4d566945aa414d3eb5b4d420025 data/routers/recipe/fluid_upgrade_3.json
 32f0f055f35dce6beed8dcfffb4837ad86c0dd87 data/routers/recipe/fluid_upgrade_4.json
 ab85e6fba84475d34c62e6f8604dbb8b9b48dc60 data/routers/recipe/ignore_nbt_upgrade.json
-d5dc4f57f581256a2e883f31f1133f091f122bc7 data/routers/recipe/importer.json
+a65ae5ee23a0569b7ace3b9ee91a579f76d08a02 data/routers/recipe/importer.json
 a5d2ab86370903fe4bbc341cf0e3c940c8485f67 data/routers/recipe/item_upgrade_1.json
 f5667354dd42665aef2f99db56acf793f23ca3d3 data/routers/recipe/item_upgrade_2.json
 11aec431a1e5128c50aaa1077121c1e8c9a3053b data/routers/recipe/item_upgrade_3.json

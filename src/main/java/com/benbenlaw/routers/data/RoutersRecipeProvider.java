@@ -46,10 +46,11 @@ public class RoutersRecipeProvider extends RecipeProvider {
         //Exporter
         shaped(RecipeCategory.MISC, RoutersBlocks.EXPORTER.get())
                 .pattern("ABA")
-                .pattern("B B")
+                .pattern("BCB")
                 .pattern("ABA")
                 .define('A', Tags.Items.INGOTS_IRON)
                 .define('B', ItemTags.LOGS)
+                .define('C', Tags.Items.CHESTS_WOODEN)
                 .group(Routers.MOD_ID)
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
@@ -57,10 +58,11 @@ public class RoutersRecipeProvider extends RecipeProvider {
         //Importer
         shaped(RecipeCategory.MISC, RoutersBlocks.IMPORTER.get())
                 .pattern("ABA")
-                .pattern("B B")
+                .pattern("BCB")
                 .pattern("ABA")
                 .define('A', Tags.Items.INGOTS_IRON)
                 .define('B', ItemTags.LOGS)
+                .define('C', Items.HOPPER)
                 .group(Routers.MOD_ID)
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
@@ -68,10 +70,11 @@ public class RoutersRecipeProvider extends RecipeProvider {
         //Distributor
         shaped(RecipeCategory.MISC, RoutersBlocks.DISTRIBUTOR.get())
                 .pattern("ABA")
-                .pattern("B B")
+                .pattern("BCB")
                 .pattern("ABA")
                 .define('A', Tags.Items.INGOTS_GOLD)
                 .define('B', ItemTags.LOGS)
+                .define('C', RoutersBlocks.IMPORTER.get())
                 .group(Routers.MOD_ID)
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
