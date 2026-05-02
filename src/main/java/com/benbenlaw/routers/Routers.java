@@ -1,5 +1,7 @@
 package com.benbenlaw.routers;
 
+import com.benbenlaw.routers.api.screen.RouterUIRegistries;
+import com.benbenlaw.routers.api.screen.RouterUIRenderers;
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.block.RoutersCapabilities;
@@ -10,6 +12,7 @@ import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.networking.RoutersNetworking;
 import com.benbenlaw.routers.screen.*;
 import com.benbenlaw.routers.screen.upgrade.FilterScreen;
+import com.benbenlaw.routers.transfers.RoutersTransfers;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -19,6 +22,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -38,9 +42,15 @@ public class Routers {
         RoutersDataComponents.COMPONENTS.register(eventBus);
         RoutersCreativeTab.CREATIVE_MODE_TABS.register(eventBus);
         RoutersMenuTypes.MENUS.register(eventBus);
+        RoutersTransfers.TRANSFER_MODULES.register(eventBus);
+        RouterUIRegistries.SCREEN_MODULES.register(eventBus);
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::registerCapabilities);
+
+        if (Dist.CLIENT.isClient()) {
+            eventBus.addListener(this::onClientSetup);
+        }
 
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.STARTUP, StartupConfig.SPEC, "bbl/routers-startup.toml");
     }
@@ -59,9 +69,13 @@ public class Routers {
             event.register(RoutersMenuTypes.CONFIG_MENU.get(), ConfigScreen::new);
             event.register(RoutersMenuTypes.FILTER_MENU.get(), FilterScreen::new);
             event.register(RoutersMenuTypes.DISTRIBUTOR_MENU.get(), DistributorScreen::new);
-
-
         }
+
+
+    }
+
+    private void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(RouterUIRenderers::init);
     }
 
     public void registerCapabilities(RegisterCapabilitiesEvent event) {

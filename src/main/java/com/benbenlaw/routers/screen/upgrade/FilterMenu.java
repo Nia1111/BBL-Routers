@@ -3,38 +3,40 @@ package com.benbenlaw.routers.screen.upgrade;
 import com.benbenlaw.core.screen.SimpleAbstractContainerMenu;
 import com.benbenlaw.core.screen.util.slot.FilterFluidSlot;
 import com.benbenlaw.core.screen.util.slot.FilterSlot;
+import com.benbenlaw.routers.api.RouterButtonTypes;
 import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
 import com.benbenlaw.routers.screen.RoutersMenuTypes;
+import com.benbenlaw.routers.api.screen.ScreenModule;
+import com.benbenlaw.routers.api.screen.RouterUIRegistries;
 import com.benbenlaw.routers.screen.util.button.ButtonType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 
-import java.awt.*;
-
 public class FilterMenu extends SimpleAbstractContainerMenu {
 
+    public final ExporterBlockEntity blockEntity;
+    protected final Level level;
+    protected final Player player;
+    public final BlockPos blockPos;
+    public final ButtonType buttonType;
 
-    protected ExporterBlockEntity blockEntity;
-    protected Level level;
-    protected ContainerData data;
-    protected Player player;
-    protected BlockPos blockPos;
-    protected ButtonType buttonType;
-
-
+    // Buffer Constructor - Now reading ResourceLocation instead of Enum
     public FilterMenu(int containerID, Inventory inventory, FriendlyByteBuf extraData) {
-        this(containerID, inventory, extraData.readBlockPos(), extraData.readEnum(ButtonType.class), new SimpleContainerData(2));
+        this(containerID, inventory,
+                extraData.readBlockPos(),
+                RouterButtonTypes.BUTTONS.get(extraData.readIdentifier()),
+                new SimpleContainerData(2));
     }
 
     public FilterMenu(int containerID, Inventory inventory, BlockPos blockPos, ButtonType buttonType, ContainerData data) {
@@ -45,54 +47,41 @@ public class FilterMenu extends SimpleAbstractContainerMenu {
         this.level = inventory.player.level();
         this.blockEntity = (ExporterBlockEntity) this.level.getBlockEntity(blockPos);
 
-        assert blockEntity != null;
+        // Safety check: if buttonType is null (mod removed?), don't add slots
+        if (blockEntity != null && buttonType != null) {
+            Registry<ScreenModule> registry = level.registryAccess().lookupOrThrow(RouterUIRegistries.SCREEN_MODULE_KEY);
 
-        //Add Item Slots
-        if (buttonType == ButtonType.ITEM_FILTER) {
-            for (int i = 0; i < 9; i++) {
-                this.addSlot(new FilterSlot(blockEntity.getFilterItemHandler(), blockEntity.getFilterItemHandler()::set,
-                        i, 8 + i * 18, 36));
-            }
-            for (int i = 9; i < 18; i++) {
-                this.addSlot(new FilterSlot(blockEntity.getFilterItemHandler(), blockEntity.getFilterItemHandler()::set,
-                        i, 8 + (i - 9) * 18, 54));
-            }
-        }
-
-        //Add Fluid Slots
-        if (buttonType == ButtonType.FLUID_FILTER) {
-            SimpleContainer fluidFilterContainer = new SimpleContainer(18);
-            for (int i = 0; i < 9; i++) {
-                this.addSlot(new FilterFluidSlot(fluidFilterContainer, blockEntity.getFilterFluidHandler(), i, 8 + i * 18, 36));
-            }
-            for (int i = 9; i < 18; i++) {
-                this.addSlot(new FilterFluidSlot(fluidFilterContainer, blockEntity.getFilterFluidHandler(), i, 8 + (i - 9) * 18, 54));
+            for (ScreenModule module : registry) {
+                // Compare the registered ButtonType instances
+                if (module.buttonType() == buttonType) {
+                    module.slotAdder().accept(this, blockEntity, 0);
+                    break;
+                }
             }
         }
-
-
         this.addDataSlots(data);
+    }
+
+    public Slot addSlotPublic(Slot slot) {
+        return this.addSlot(slot);
     }
 
     @Override
     public void clicked(int slotId, int button, ContainerInput clickType, Player player) {
         if (slotId >= 0 && slotId < slots.size()) {
-            if (this.slots.get(slotId) instanceof FilterSlot filterSlot) {
+            Slot slot = this.slots.get(slotId);
+
+            if (slot instanceof FilterSlot filterSlot) {
                 ItemStack carried = this.getCarried();
-                if (!carried.isEmpty()) {
-                    filterSlot.set(carried.copyWithCount(1));
-                } else {
-                    filterSlot.set(ItemStack.EMPTY);
-                }
+                filterSlot.set(carried.isEmpty() ? ItemStack.EMPTY : carried.copyWithCount(1));
                 return;
             }
 
-            if (this.slots.get(slotId) instanceof FilterFluidSlot filterSlot) {
-
-                if (this.getCarried().isEmpty()) {
+            if (slot instanceof FilterFluidSlot filterSlot) {
+                ItemStack carried = this.getCarried();
+                if (carried.isEmpty()) {
                     filterSlot.setEmpty();
                 } else {
-                    ItemStack carried = this.getCarried();
                     FluidStack fluidInStack = FluidUtil.getFirstStackContained(carried);
                     if (!fluidInStack.isEmpty()) {
                         filterSlot.set(fluidInStack);
@@ -102,6 +91,5 @@ public class FilterMenu extends SimpleAbstractContainerMenu {
             }
         }
         super.clicked(slotId, button, clickType, player);
-
     }
 }

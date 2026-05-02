@@ -4,21 +4,21 @@ import com.benbenlaw.core.block.entity.SyncableBlockEntity;
 import com.benbenlaw.core.block.entity.handler.fluid.FilterFluidHandler;
 import com.benbenlaw.core.block.entity.handler.item.FilterItemHandler;
 import com.benbenlaw.core.block.entity.handler.item.InputItemHandler;
+import com.benbenlaw.routers.api.TransferModule;
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.custom.RouterBlock;
 import com.benbenlaw.routers.config.StartupConfig;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.item.UpgradeItem;
-import com.benbenlaw.routers.logic.ExporterEnergyTransfer;
-import com.benbenlaw.routers.logic.ExporterFluidTransfer;
-import com.benbenlaw.routers.logic.ExporterItemTransfer;
 import com.benbenlaw.routers.screen.ExporterMenu;
 import com.benbenlaw.routers.screen.util.button.ButtonType;
+import com.benbenlaw.routers.transfers.RoutersTransfers;
 import com.benbenlaw.routers.util.ConnectedResources;
 import com.benbenlaw.routers.util.RoutersTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -40,11 +40,11 @@ import java.util.List;
 
 public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProvider {
 
-    private List<GlobalPos> importerPositions;
+    public List<GlobalPos> importerPositions;
     public final ContainerData data;
     public GlobalPos exporterPos;
 
-    private boolean isRoundRobin;
+    public boolean isRoundRobin;
     private boolean canDoDimensionalTravel;
     private boolean ignoreNbt;
     private boolean isBlacklist;
@@ -91,7 +91,7 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
     private final FilterFluidHandler filterFluidHandler = new FilterFluidHandler(this, 18);
 
     private ConnectedResources connectedResources;
-    private int lastImporterIndex = 0;
+    public int lastImporterIndex = 0;
 
     public ExporterBlockEntity(BlockPos pos, BlockState state) {
         super(RoutersBlockEntities.EXPORTER_BLOCK_ENTITY.get(), pos, state);
@@ -178,6 +178,27 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         }
     }
 
+    public int getUpgradeValue(TagKey<Item> tag) {
+        for (int i = 0; i < upgradeItemHandler.size(); i++) {
+            ItemStack stack = upgradeItemHandler.getResource(i).toStack();
+            if (stack.is(tag) && stack.getItem() instanceof UpgradeItem upgrade) {
+                return upgrade.getExtractAmount();
+            }
+        }
+        return 0;
+    }
+
+    public void moveResources() {
+        assert level != null;
+        Registry<TransferModule> registry = level.registryAccess().lookupOrThrow(RoutersTransfers.TRANSFER_MODULE_KEY);
+
+        for (TransferModule module : registry) {
+            if (hasCorrectUpgrade(module.upgradeTag())) {
+                this.lastImporterIndex = module.logic().apply((ServerLevel) level, this);
+            }
+        }
+    }
+
     public void validateImporterPositions(List<GlobalPos> importerPositions) {
         importerPositions.removeIf(pos -> {
             ServerLevel importerLevel = level.getServer().getLevel(pos.dimension());
@@ -185,19 +206,6 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         });
     }
 
-    public void moveResources() {
-
-        if (hasCorrectUpgrade(RoutersTags.Items.ITEM_UPGRADES)) {
-            handleItems();
-        }
-        if (hasCorrectUpgrade(RoutersTags.Items.FLUID_UPGRADES)) {
-            handleFluids();
-        }
-        if (hasCorrectUpgrade(RoutersTags.Items.RF_UPGRADES)) {
-            handleEnergy();
-        }
-
-    }
 
     public boolean hasCorrectUpgrade(TagKey<Item> tag) {
         for (int i = 0; i < upgradeItemHandler.size(); i++) {
@@ -221,102 +229,6 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         }
         return speed;
     }
-
-    public void handleItems() {
-        int newIndex = ExporterItemTransfer.transferItems(
-                (ServerLevel) level,
-                this,
-                worldPosition,
-                connectedResources,
-                importerPositions,
-                filterItemHandler,
-                isRoundRobin,
-                lastImporterIndex,
-                getUpgradeValue()
-        );
-
-        if (newIndex != lastImporterIndex) {
-            lastImporterIndex = newIndex;
-            setChanged();
-        }
-    }
-
-    public void handleFluids() {
-        int newIndex = ExporterFluidTransfer.transferFluids((ServerLevel) level, this, worldPosition, connectedResources, importerPositions, filterFluidHandler,
-                isRoundRobin, lastImporterIndex, getFluidUpgradeValue()
-        );
-
-        if (newIndex != lastImporterIndex) {
-            lastImporterIndex = newIndex;
-            setChanged();
-        }
-    }
-
-    public void handleEnergy() {
-        int newIndex = ExporterEnergyTransfer.transferEnergy(
-                (ServerLevel) level,
-                this,
-                worldPosition,
-                connectedResources,
-                importerPositions,
-                isRoundRobin,
-                lastImporterIndex,
-                getEnergyValue()
-        );
-
-        if (newIndex != lastImporterIndex) {
-            lastImporterIndex = newIndex;
-            setChanged();
-        }
-    }
-
-    public int getUpgradeValue() {
-        int value = 0;
-
-        for (int i = 0; i < upgradeItemHandler.size(); i++) {
-
-            ItemStack stack = upgradeItemHandler.getResource(i).toStack();
-            if (stack.isEmpty()) continue;
-
-            if (stack.getItem() instanceof UpgradeItem upgradeItem && stack.is(RoutersTags.Items.ITEM_UPGRADES)) {
-                value = upgradeItem.getExtractAmount();
-            }
-        }
-
-        return value;
-
-    }
-
-    public int getFluidUpgradeValue() {
-        int value = 0;
-
-        for (int i = 0; i < upgradeItemHandler.size(); i++) {
-            ItemStack stack = upgradeItemHandler.getResource(i).toStack();
-            if (stack.isEmpty()) continue;
-
-            if (stack.is(RoutersTags.Items.FLUID_UPGRADES) && stack.getItem() instanceof UpgradeItem upgrade) {
-                value = upgrade.getExtractAmount();
-            }
-        }
-
-        return value;
-    }
-
-    public int getEnergyValue() {
-        int value = 0;
-
-        for (int i = 0; i < upgradeItemHandler.size(); i++) {
-            ItemStack stack = upgradeItemHandler.getResource(i).toStack();
-            if (stack.isEmpty()) continue;
-
-            if (stack.is(RoutersTags.Items.RF_UPGRADES) && stack.getItem() instanceof UpgradeItem upgrade) {
-                value = upgrade.getExtractAmount();
-            }
-        }
-
-        return value;
-    }
-
 
     public BlockPos getTargetBlockPos(BlockPos startPos) {
         Direction facing = level.getBlockState(startPos).getValue(RouterBlock.FACING);
@@ -353,11 +265,11 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         if (existing != null) {
             importerPositions.remove(existing);
             setChanged();
-            return false; // disconnected
+            return false;
         } else {
             importerPositions.add(clickedPos);
             setChanged();
-            return true; // connected
+            return true;
         }
     }
 

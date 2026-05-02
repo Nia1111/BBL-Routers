@@ -2,6 +2,7 @@ package com.benbenlaw.routers.screen;
 
 import com.benbenlaw.core.screen.util.FluidRenderingUtils;
 import com.benbenlaw.routers.Routers;
+import com.benbenlaw.routers.api.RouterButtonTypes;
 import com.benbenlaw.routers.screen.util.MousePositionManagerUtil;
 import com.benbenlaw.routers.screen.util.button.ButtonType;
 import com.benbenlaw.routers.screen.util.button.FilterButton;
@@ -51,19 +52,16 @@ public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
         int BUTTON_SPACING = 19;
         int BUTTON_Y = 30;
 
-        int upgradeCount = 0;
-        for (ButtonType type : ButtonType.values()) {
-            if (menu.blockEntity.hasUpgrade(type)) {
-                upgradeCount++;
-            }
-        }
+        long upgradeCount = RouterButtonTypes.BUTTONS.values().stream()
+                .filter(type -> menu.blockEntity.hasUpgrade(type))
+                .count();
 
-        int totalWidth = upgradeCount * BUTTON_SPACING - (upgradeCount > 0 ? (BUTTON_SPACING - BUTTON_SIZE) : 0);
+        int totalWidth = (int) (upgradeCount * BUTTON_SPACING - (upgradeCount > 0 ? (BUTTON_SPACING - BUTTON_SIZE) : 0));
         int startX = baseX + (imageWidth - totalWidth) / 2 + 1;
 
         int index = 0;
 
-        for (ButtonType type : ButtonType.values()) {
+        for (ButtonType type : RouterButtonTypes.BUTTONS.values()) {
             boolean hasUpgrade = menu.blockEntity.hasUpgrade(type);
 
             if (hasUpgrade) {
@@ -86,7 +84,6 @@ public class ExporterScreen extends AbstractContainerScreen<ExporterMenu> {
                 } else {
                     filterButtons.get(type).setPosition(x, y);
                 }
-
                 index++;
             } else if (filterButtons.containsKey(type)) {
                 removeWidget(filterButtons.get(type));

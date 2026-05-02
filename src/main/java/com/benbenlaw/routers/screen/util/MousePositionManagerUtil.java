@@ -5,8 +5,6 @@ import org.lwjgl.glfw.GLFW;
 
 public class MousePositionManagerUtil {
 
-    // This is used to store the last known mouse position when transitioning between screens
-
     public static double lastMouseX = -1;
     public static double lastMouseY = -1;
 
