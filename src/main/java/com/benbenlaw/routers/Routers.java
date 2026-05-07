@@ -1,10 +1,11 @@
 package com.benbenlaw.routers;
 
 import com.benbenlaw.routers.api.screen.RouterUIRegistries;
-import com.benbenlaw.routers.api.screen.RouterUIRenderers;
+import com.benbenlaw.routers.api.screen.client.RouterUIRenderers;
 import com.benbenlaw.routers.block.RoutersBlockEntities;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.block.RoutersCapabilities;
+import com.benbenlaw.routers.block.entity.renderer.ExporterBlockEntityRenderer;
 import com.benbenlaw.routers.config.StartupConfig;
 import com.benbenlaw.routers.item.RoutersCreativeTab;
 import com.benbenlaw.routers.item.RoutersDataComponents;
@@ -24,7 +25,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,6 +65,12 @@ public class Routers {
 
     @EventBusSubscriber(modid = Routers.MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
+
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(RoutersBlockEntities.EXPORTER_BLOCK_ENTITY.get(), ExporterBlockEntityRenderer::new);
+        }
+
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(RoutersMenuTypes.EXPORTER_MENU.get(), ExporterScreen::new);
@@ -70,8 +79,6 @@ public class Routers {
             event.register(RoutersMenuTypes.FILTER_MENU.get(), FilterScreen::new);
             event.register(RoutersMenuTypes.DISTRIBUTOR_MENU.get(), DistributorScreen::new);
         }
-
-
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

@@ -79,9 +79,13 @@ dependencies {
     //BBL Core
     implementation("curse.maven:bblcore-1135181:${core_version}")
     //Pipez
-    implementation("curse.maven:pipez-443900:7859957")
+    //runtimeOnly("curse.maven:pipez-443900:7859957")
     //Ender IO
-    runtimeOnly("curse.maven:ender-io-64578:7932315")
+    runtimeOnly("curse.maven:ender-io-64578:8004141")
+    //AE2
+    runtimeOnly("curse.maven:applied-energistics-2-223794:8041962")
+    //Guide ME
+    runtimeOnly("curse.maven:guideme-1173950:7929350")
 }
 
 tasks.withType(ProcessResources).configureEach {

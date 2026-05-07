@@ -49,8 +49,7 @@ public class EnergyTransfer {
         if (targetLevel == null || (!pos.dimension().equals(level.dimension()) && !exporter.canDoDimensionalTravel())) return null;
         if (!targetLevel.isLoaded(pos.pos()) || !(targetLevel.getBlockEntity(pos.pos()) instanceof ImporterBlockEntity)) return null;
 
-        var state = targetLevel.getBlockState(pos.pos());
-        Direction facing = state.getValue(RouterBlock.FACING).getOpposite();
-        return targetLevel.getCapability(Capabilities.Energy.BLOCK, pos.pos().relative(state.getValue(RouterBlock.FACING)), facing);
+        Direction facing = exporter.getBlockState().getValue(RouterBlock.FACING);
+        return targetLevel.getCapability(Capabilities.Energy.BLOCK, pos.pos().relative(facing), facing.getOpposite());
     }
 }

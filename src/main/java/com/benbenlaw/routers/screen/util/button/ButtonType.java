@@ -15,9 +15,10 @@ public class ButtonType {
     private final String buttonTooltip;
     private final String menuName;
     private final TagKey<Item> unlockedBy;
+    private final float[] color;
 
     public ButtonType(Identifier id, int xOffset, int yOffset, String texture, String textureHover,
-                      String buttonTooltip, String menuName, TagKey<Item> unlockedBy) {
+                      String buttonTooltip, String menuName, TagKey<Item> unlockedBy, float[] color) {
         this.id = id;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -26,6 +27,7 @@ public class ButtonType {
         this.buttonTooltip = buttonTooltip;
         this.menuName = menuName;
         this.unlockedBy = unlockedBy;
+        this.color = color;
     }
 
     // Standard Getters...
@@ -37,4 +39,15 @@ public class ButtonType {
     public String getButtonTooltip() { return buttonTooltip; }
     public String getMenuName() { return menuName; }
     public TagKey<Item> getUnlockedBy() { return unlockedBy; }
+    public float[] getColor() { return color; }
+
+
+    public static float[] hex(String hex) {
+        int color = Integer.parseInt(hex, 16);
+        return new float[]{
+                ((color >> 16) & 0xFF) / 255f,
+                ((color >> 8) & 0xFF) / 255f,
+                (color & 0xFF) / 255f
+        };
+    }
 }

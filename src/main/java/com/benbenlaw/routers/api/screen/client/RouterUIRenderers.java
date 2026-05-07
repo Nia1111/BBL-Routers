@@ -1,4 +1,4 @@
-package com.benbenlaw.routers.api.screen;
+package com.benbenlaw.routers.api.screen.client;
 
 import com.benbenlaw.core.screen.util.FluidRenderingUtils;
 import com.benbenlaw.routers.Routers;
@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class RouterUIRenderers {
-    // Now uses the ButtonType class as the key
     private static final Map<ButtonType, Renderer> RENDERERS = new HashMap<>();
     private static final Identifier SLOTS_9 = Routers.identifier("inventory_slots_9");
 

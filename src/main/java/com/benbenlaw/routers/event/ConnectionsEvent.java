@@ -40,7 +40,6 @@ public class ConnectionsEvent {
            GlobalPos mainExporterPos = heldItem.get(RoutersDataComponents.EXPORTER_POSITION.value());
            GlobalPos mainImporterPos = heldItem.get(RoutersDataComponents.IMPORTER_POSITION.value());
 
-
             if (player.isShiftKeyDown()) {
                 player.swing(event.getHand(), true);
 
@@ -78,12 +77,7 @@ public class ConnectionsEvent {
         }
     }
 
-    private static void connectExporterToImporter(
-            Level level,
-            Player player,
-            GlobalPos exporterPos,
-            GlobalPos importerPos
-    ) {
+    private static void connectExporterToImporter(Level level, Player player, GlobalPos exporterPos, GlobalPos importerPos) {
         ServerLevel exporterLevel = level.getServer().getLevel(exporterPos.dimension());
 
         if (exporterLevel == null || !exporterLevel.isLoaded(exporterPos.pos())) {

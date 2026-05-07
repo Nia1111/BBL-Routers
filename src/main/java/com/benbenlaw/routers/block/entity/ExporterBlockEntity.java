@@ -265,14 +265,17 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
         if (existing != null) {
             importerPositions.remove(existing);
             setChanged();
-            return false;
         } else {
             importerPositions.add(clickedPos);
             setChanged();
-            return true;
         }
-    }
 
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+
+        return existing == null;
+    }
 
     public boolean hasUpgrade(ButtonType type) {
         for (int i = 0; i < upgradeItemHandler.size(); i++) {

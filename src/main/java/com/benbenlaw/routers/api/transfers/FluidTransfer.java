@@ -71,8 +71,7 @@ public class FluidTransfer {
         if (targetLevel == null || (!pos.dimension().equals(level.dimension()) && !exporter.canDoDimensionalTravel())) return null;
         if (!targetLevel.isLoaded(pos.pos())) return null;
 
-        var state = targetLevel.getBlockState(pos.pos());
-        Direction facing = state.getValue(RouterBlock.FACING).getOpposite();
-        return targetLevel.getCapability(Capabilities.Fluid.BLOCK, pos.pos().relative(state.getValue(RouterBlock.FACING)), facing);
+        Direction facing = exporter.getBlockState().getValue(RouterBlock.FACING);
+        return targetLevel.getCapability(Capabilities.Fluid.BLOCK, pos.pos().relative(facing), facing.getOpposite());
     }
 }

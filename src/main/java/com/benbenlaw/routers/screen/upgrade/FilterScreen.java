@@ -1,7 +1,7 @@
 package com.benbenlaw.routers.screen.upgrade;
 
 import com.benbenlaw.routers.Routers;
-import com.benbenlaw.routers.api.screen.RouterUIRenderers; // Import the new renderer manager
+import com.benbenlaw.routers.api.screen.client.RouterUIRenderers; // Import the new renderer manager
 import com.benbenlaw.routers.screen.util.MousePositionManagerUtil;
 import com.benbenlaw.routers.screen.util.button.BackButton;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
