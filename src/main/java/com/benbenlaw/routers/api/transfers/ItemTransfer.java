@@ -59,7 +59,8 @@ public class ItemTransfer {
         if (targetLevel == null || (!pos.dimension().equals(level.dimension()) && !exporter.canDoDimensionalTravel())) return null;
         if (!targetLevel.isLoaded(pos.pos())) return null;
 
-        Direction facing = exporter.getBlockState().getValue(RouterBlock.FACING);
+        var state = targetLevel.getBlockState(pos.pos());
+        Direction facing = state.getValue(RouterBlock.FACING);
         return targetLevel.getCapability(Capabilities.Item.BLOCK, pos.pos().relative(facing), facing.getOpposite());
     }
 }
