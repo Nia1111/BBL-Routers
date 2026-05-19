@@ -2,6 +2,7 @@ package com.benbenlaw.routers.integration;
 
 import com.benbenlaw.core.integration.jei.GhostFilter;
 import com.benbenlaw.routers.Routers;
+import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.item.RoutersItems;
 import com.benbenlaw.routers.screen.ImporterScreen;
 import com.benbenlaw.routers.screen.upgrade.FilterScreen;
@@ -13,6 +14,7 @@ import mezz.jei.api.registration.IIngredientAliasRegistration;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Collection;
 import java.util.List;
 
 @JeiPlugin
@@ -33,5 +35,11 @@ public class JEIRoutersPlugin implements IModPlugin {
     @Override
     public void registerIngredientAliases(IIngredientAliasRegistration registration) {
         registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersItems.CONNECTOR.get())), "wrench");
+
+        Collection<String> exporterAliases = List.of("exporter", "cable", "wireless");
+        Collection<String> importerAliases = List.of("importer", "cable", "wireless");
+
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersBlocks.EXPORTER.get())),  exporterAliases);
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersBlocks.IMPORTER.get())),  importerAliases);
     }
 }
