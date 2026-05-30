@@ -34,6 +34,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
@@ -48,12 +49,7 @@ public class ExporterBlockEntityRenderer
     }
 
     @Override
-    public void extractRenderState(
-            ExporterBlockEntity blockEntity,
-            ExporterBlockEntityRendererState state,
-            float partialTicks,
-            Vec3 cameraPosition,
-            ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+    public void extractRenderState(ExporterBlockEntity blockEntity, ExporterBlockEntityRendererState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
 
@@ -66,13 +62,11 @@ public class ExporterBlockEntityRenderer
         state.exporterFacing =
                 blockEntity.getBlockState().getValue(ExporterBlock.FACING);
 
-        // IMPORTANT: clone to avoid mutation / desync issues
         state.importerPositions =
                 blockEntity.importerPositions == null
                         ? new ArrayList<>()
                         : new ArrayList<>(blockEntity.importerPositions);
 
-        // cache handler (NO world access later)
         state.upgradeItems = blockEntity.getUpgradeItemHandler();
     }
 
@@ -90,7 +84,6 @@ public class ExporterBlockEntityRenderer
         Level level = Minecraft.getInstance().level;
         if (level == null) return;
 
-        // ✅ SAFE GUARDS (fixes Sodium/chunk desync crashes)
         if (state == null) return;
         if (state.exporterPosition == null) return;
         if (state.importerPositions == null || state.importerPositions.isEmpty()) return;
@@ -99,8 +92,6 @@ public class ExporterBlockEntityRenderer
         Vec3 camera = cameraRenderState.pos;
 
         Vec3 exporterPos = getBeamStart(state.exporterPosition.pos(), level);
-
-        // ❌ NO BLOCK ENTITY LOOKUP ANYMORE
         ItemStacksResourceHandler itemHandler = state.upgradeItems;
 
         Set<String> uniqueKeys = new HashSet<>();
@@ -270,7 +261,21 @@ public class ExporterBlockEntityRenderer
                     .createRenderSetup()
     );
 
-    @Override public boolean shouldRender(ExporterBlockEntity be, Vec3 cameraPos) { return true; }
-    @Override public boolean shouldRenderOffScreen() { return true; }
-    @Override public int getViewDistance() { return 64; }
+    @Override public boolean shouldRender(ExporterBlockEntity be, Vec3 cameraPos) {
+        return true;
+    }
+
+    @Override public boolean shouldRenderOffScreen() {
+        return true;
+    }
+
+    @Override public int getViewDistance() {
+        return 64;
+    }
+
+    @Override
+    public @NonNull AABB getRenderBoundingBox(ExporterBlockEntity blockEntity) {
+        return AABB.encapsulatingFullBlocks(blockEntity.getBlockPos().above(32).north(32).east(32),
+                blockEntity.getBlockPos().below(32).south(32).west(32));
+    }
 }

@@ -40,8 +40,6 @@ public class ConfigMenu extends AbstractContainerMenu {
         return ItemStack.EMPTY;
     }
 
-
-
     @Override
     public boolean stillValid(@NotNull Player player) {
         return true;

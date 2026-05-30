@@ -40,10 +40,4 @@ public class ExporterMenu extends SimpleAbstractContainerMenu {
 
         this.addDataSlots(data);
     }
-
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        return ItemStack.EMPTY;
-    }
-
 }

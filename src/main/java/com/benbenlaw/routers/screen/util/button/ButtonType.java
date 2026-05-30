@@ -30,7 +30,6 @@ public class ButtonType {
         this.color = color;
     }
 
-    // Standard Getters...
     public Identifier getId() { return id; }
     public int getOffsetX() { return xOffset; }
     public int getOffsetY() { return yOffset; }

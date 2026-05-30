@@ -1,6 +1,5 @@
 package com.benbenlaw.routers.block.custom;
 
-import com.benbenlaw.core.block.SyncableBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -31,6 +31,7 @@ public class RouterBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
     public static final MapCodec<RouterBlock> CODEC = simpleCodec(RouterBlock::new);
     public static final EnumProperty<@NotNull Direction> FACING = DirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty WORKING = BooleanProperty.create("working");
 
     @Override
     protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
@@ -39,9 +40,24 @@ public class RouterBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
     public RouterBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(WATERLOGGED, false)
+                .setValue(WORKING, true)
+        );
     }
 
+    protected void neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @org.jetbrains.annotations.Nullable Orientation orientation, boolean movedByPiston) {
+        if (!level.isClientSide()) {
+            boolean powered = level.hasNeighborSignal(pos);
+            if (powered && state.getValue(WORKING)) {
+                level.setBlock(pos, state.setValue(WORKING, false), 3);
+            } else if (!powered && !(Boolean)state.getValue(WORKING)) {
+                level.setBlock(pos, state.setValue(WORKING, true), 3);
+            }
+        }
+
+    }
 
     private static final Map<Direction, VoxelShape> SHAPE_MAP = new EnumMap<>(Direction.class);
 
@@ -143,22 +159,23 @@ public class RouterBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
         return this.defaultBlockState()
                 .setValue(FACING, context.getClickedFace().getOpposite())
-                .setValue(WATERLOGGED, water);
+                .setValue(WATERLOGGED, water)
+                .setValue(WORKING, true);
     }
 
     @Override
     public @NotNull BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))).setValue(WATERLOGGED, pState.getValue(WATERLOGGED));
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))).setValue(WATERLOGGED, pState.getValue(WATERLOGGED)).setValue(WORKING, pState.getValue(WORKING));
     }
 
     @Override
     public @NotNull BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING))).setValue(WATERLOGGED, pState.getValue(WATERLOGGED));
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING))).setValue(WATERLOGGED, pState.getValue(WATERLOGGED)).setValue(WORKING, pState.getValue(WORKING));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, WATERLOGGED);
+        pBuilder.add(FACING, WATERLOGGED, WORKING);
     }
 
     @Override

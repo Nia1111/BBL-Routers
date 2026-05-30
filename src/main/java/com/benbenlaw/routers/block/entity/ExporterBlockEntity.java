@@ -155,7 +155,9 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
 
     public void tick() {
 
+        assert level != null;
         if (level.isClientSide()) return;
+        if (!level.getBlockState(worldPosition).getValue(RouterBlock.WORKING)) return;
 
         if (level.getGameTime() % 100 == 0) {
             validateImporterPositions(importerPositions);
@@ -337,5 +339,7 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
 
         super.loadAdditional(input);
     }
+
+
 
 }
