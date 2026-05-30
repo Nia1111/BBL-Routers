@@ -75,7 +75,6 @@ public class Routers {
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(RoutersMenuTypes.EXPORTER_MENU.get(), ExporterScreen::new);
             event.register(RoutersMenuTypes.IMPORTER_MENU.get(), ImporterScreen::new);
-            event.register(RoutersMenuTypes.CONFIG_MENU.get(), ConfigScreen::new);
             event.register(RoutersMenuTypes.FILTER_MENU.get(), FilterScreen::new);
             event.register(RoutersMenuTypes.DISTRIBUTOR_MENU.get(), DistributorScreen::new);
         }

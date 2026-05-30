@@ -18,9 +18,6 @@ public class RoutersMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<ImporterMenu>> IMPORTER_MENU =
             MENUS.register("importer_menu", () -> IMenuTypeExtension.create(ImporterMenu::new));
 
-    public static final DeferredHolder<MenuType<?>, MenuType<ConfigMenu>> CONFIG_MENU =
-            MENUS.register("config_menu", () -> IMenuTypeExtension.create(ConfigMenu::new));
-
     public static final DeferredHolder<MenuType<?>, MenuType<FilterMenu>> FILTER_MENU =
             MENUS.register("item_filter_menu", () -> IMenuTypeExtension.create(FilterMenu::new));
 

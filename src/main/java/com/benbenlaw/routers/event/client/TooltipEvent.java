@@ -3,14 +3,14 @@ package com.benbenlaw.routers.event.client;
 import com.benbenlaw.routers.Routers;
 import com.benbenlaw.routers.block.RoutersBlocks;
 import com.benbenlaw.routers.config.StartupConfig;
-import com.benbenlaw.routers.item.RoutersDataComponents;
-import com.benbenlaw.routers.item.RoutersItems;
-import com.benbenlaw.routers.item.UpgradeItem;
+import com.benbenlaw.routers.item.*;
 import com.benbenlaw.routers.util.RoutersTags;
+import com.mojang.blaze3d.textures.FilterMode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,6 +63,36 @@ public class TooltipEvent {
             }
         }
 
+        if (stack.getItem() instanceof FilterItem filterItem) {
+            FilterType mode = filterItem.filterType;
+
+            if (mode == FilterType.TAG) {
+                Identifier tagInfo = stack.get(RoutersDataComponents.TAG_FILTER.value());
+                if (tagInfo != null) {
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.tag_filter", tagInfo.toString());
+                } else {
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.tag_filter_info");
+                }
+            }
+            if (mode == FilterType.MOD) {
+                String modInfo = stack.get(RoutersDataComponents.MOD_FILTER.value());
+                if (modInfo != null) {
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.mod_filter", modInfo);
+                } else {
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.mod_filter_info");
+                }
+            }
+            if (mode == FilterType.STOCK) {
+                StockFilter stockInfo = stack.get(RoutersDataComponents.STOCK_FILTER.value());
+                if (stockInfo != null) {
+                    ItemStack stockStack = stockInfo.stack();
+                    int stockCount = stockInfo.amount();
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.stock_filter", stockStack.getHoverName().getString(), String.valueOf(stockCount));
+                } else {
+                    addShiftTooltip(stack, event, filterItem, "tooltip.routers.stock_filter_info");
+                }
+            }
+        }
     }
 
 

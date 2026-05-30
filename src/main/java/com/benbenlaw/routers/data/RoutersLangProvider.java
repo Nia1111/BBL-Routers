@@ -43,9 +43,12 @@ public class RoutersLangProvider extends LanguageProvider {
         add("item.routers.dimensional_upgrade", "Dimensional Upgrade");
         add("item.routers.blacklist_upgrade", "Blacklist Upgrade");
         add("item.routers.ignore_nbt_upgrade", "Ignore NBT/Components Upgrade");
-        add("item.routers.mod_filter", "Mod Filter Upgrade (Not Yet Implemented)");
-        add("item.routers.tag_filter", "Tag Filter Upgrade (Not Yet Implemented)");
+        add("item.routers.mod_filter", "Mod Filter Upgrade (BETA)");
+        add("item.routers.tag_filter", "Tag Filter Upgrade (BETA)");
+        add("item.routers.stock_filter", "Stock Filter Upgrade (BETA)");
 
+        //Client Screen
+        add("screen.routers.config", "Config Menu");
 
         //Blocks
         add("block.routers.exporter", "Exporter");
@@ -84,6 +87,20 @@ public class RoutersLangProvider extends LanguageProvider {
 
         add("tooltip.routers.wrench_exporter", "Linked Exporter at %s");
         add("tooltip.routers.wrench_importer", "Linked Importer at %s");
+
+        add("tooltip.routers.tag_filter", "Set to %s");
+        add("tooltip.routers.tag_filter_info", "Used to set a Tag as a filter");
+        add("tooltip.routers.tag_filter_tooltip", "Enter tag...");
+
+        add("tooltip.routers.mod_filter", "Set to %s");
+        add("tooltip.routers.mod_filter_info", "Used to set a Mod as a filter");
+        add("tooltip.routers.mod_filter_tooltip", "Enter mod ID...");
+
+        add("tooltip.routers.stock_filter", "Set to %s with %s amount");
+        add("tooltip.routers.stock_filter_info", "Used in Importers to only allow up to the amount and item set inside");
+        add("tooltip.routers.stock_filter_tooltip", "Enter item...");
+
+        add("tooltip.routers.amount", "Max Amount");
 
 
 

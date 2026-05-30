@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-28T15:06:00.1124982	routers Recipes
+// 26.1.2	2026-05-30T17:03:21.1875795	routers Recipes
 c83d7bb9c0e841e1035a59059e9084e1af7ac9d9 data/routers/advancement/recipes/misc/blacklist_upgrade.json
 f9410a2246a5b4606d8e5c007d1a6b2d8101e224 data/routers/advancement/recipes/misc/connector.json
 4a3e636d9be4eb25ea287ddec197dcf1d9a47850 data/routers/advancement/recipes/misc/dimensional_upgrade.json
@@ -14,6 +14,7 @@ ecb9101bf8fb47c9675b2d1ee4512d2db4cfa9dd data/routers/advancement/recipes/misc/i
 860ed419b84cc0909e9bf055472c6791b32cb253 data/routers/advancement/recipes/misc/item_upgrade_2.json
 bd886fb4ba2308c08fd9f9bd0731681b0581558b data/routers/advancement/recipes/misc/item_upgrade_3.json
 9291a4b03b87c198a1e5b9b42537e6bd30bea105 data/routers/advancement/recipes/misc/item_upgrade_4.json
+bde12fb7e98d17cf45cb3a5eacdec8ddc8eca765 data/routers/advancement/recipes/misc/mod_filter.json
 2934e345b9be4554b4f9ca65a58ea9c89000ea93 data/routers/advancement/recipes/misc/rf_upgrade_1.json
 a69b42c1c9e41838f7b7b01772ebbede3640429b data/routers/advancement/recipes/misc/rf_upgrade_2.json
 c76bf2fd1443444e1ff633e92e32ca18ccae5e5e data/routers/advancement/recipes/misc/rf_upgrade_3.json
@@ -23,6 +24,8 @@ a53ea1882cf88631ccc746150f3f52c9e3d52104 data/routers/advancement/recipes/misc/r
 b6b25c5a58ae08a3939db52ba106def5f129e413 data/routers/advancement/recipes/misc/speed_upgrade_2.json
 184781fcb0341e90a3929fc7dd05a1576abdf1b0 data/routers/advancement/recipes/misc/speed_upgrade_3.json
 c8f59a76e58d908fa609e39495a5914562b5b398 data/routers/advancement/recipes/misc/speed_upgrade_4.json
+2bb6ef0347ab17af98cadc2a2ae5d84cf37c5121 data/routers/advancement/recipes/misc/stock_filter.json
+1e298de5e41f980278c4c0238707b05e0955b64b data/routers/advancement/recipes/misc/tag_filter.json
 a46fdd042d02c3845110bcec54d18e03eddc29f2 data/routers/recipe/blacklist_upgrade.json
 fe9891a431ca49f9f884394b82b233c09c5a6451 data/routers/recipe/connector.json
 78471f0ac7efdcc7e1560624670537a24fa28695 data/routers/recipe/dimensional_upgrade.json
@@ -38,6 +41,7 @@ a5d2ab86370903fe4bbc341cf0e3c940c8485f67 data/routers/recipe/item_upgrade_1.json
 f5667354dd42665aef2f99db56acf793f23ca3d3 data/routers/recipe/item_upgrade_2.json
 11aec431a1e5128c50aaa1077121c1e8c9a3053b data/routers/recipe/item_upgrade_3.json
 3f2e41671f9bc072555fd46d0bdc6fbbe7e4a12d data/routers/recipe/item_upgrade_4.json
+08c1f70db3a9295b26dd9e783c73fb7f07bdb7b3 data/routers/recipe/mod_filter.json
 6cacef41b42bf9c3de11c8ab44a7981adc0f8414 data/routers/recipe/rf_upgrade_1.json
 5927ab4696e22f9827a4c59db0916f632769b35a data/routers/recipe/rf_upgrade_2.json
 b74177be3c2c0da4f9468aa3e3e6718e153302bb data/routers/recipe/rf_upgrade_3.json
@@ -47,3 +51,5 @@ b67e75813344a0843dd6c5915a484abceb4c8573 data/routers/recipe/speed_upgrade_1.jso
 3f475629654ff2588173d531f6d0dccf7c2f2da0 data/routers/recipe/speed_upgrade_2.json
 4ba8d6f39f91ec21c738214861d0e5b65708b508 data/routers/recipe/speed_upgrade_3.json
 4dcaeb3c515db4737c0895b02fdcab1bd162cbc9 data/routers/recipe/speed_upgrade_4.json
+d83e4d52c68f6c0c2aeb12b5ac3465aa91604774 data/routers/recipe/stock_filter.json
+42300bcc0833b70872dba479e9ebedefc815a636 data/routers/recipe/tag_filter.json

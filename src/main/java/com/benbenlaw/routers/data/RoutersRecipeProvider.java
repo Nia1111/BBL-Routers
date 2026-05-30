@@ -43,6 +43,42 @@ public class RoutersRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes() {
 
+        //Mod Filter
+        shaped(RecipeCategory.MISC, RoutersItems.MOD_FILTER.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', ItemTags.LOGS)
+                .define('C', Items.NAME_TAG)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Tag Filter
+        shaped(RecipeCategory.MISC, RoutersItems.TAG_FILTER.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.INGOTS_GOLD)
+                .define('B', ItemTags.LOGS)
+                .define('C', Items.NAME_TAG)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        //Stock Filter
+        shaped(RecipeCategory.MISC, RoutersItems.STOCK_FILTER.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Tags.Items.GEMS_DIAMOND)
+                .define('B', ItemTags.LOGS)
+                .define('C', Items.NAME_TAG)
+                .group(Routers.MOD_ID)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
         //Exporter
         shaped(RecipeCategory.MISC, RoutersBlocks.EXPORTER.get())
                 .pattern("ABA")

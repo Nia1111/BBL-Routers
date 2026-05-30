@@ -66,10 +66,13 @@ public class RoutersItems {
             properties -> new UpgradeItem(new Item.Properties().setId(createID("speed_upgrade_4")), StartupConfig.speedPerOperation4.get()));
 
     public static final DeferredItem<Item> MOD_FILTER = ITEMS.registerItem("mod_filter",
-            properties -> new FilterItem(new Item.Properties().setId(createID("mod_filter"))));
+            properties -> new FilterItem(new Item.Properties().setId(createID("mod_filter")), FilterType.MOD));
 
     public static final DeferredItem<Item> TAG_FILTER = ITEMS.registerItem("tag_filter",
-            properties -> new FilterItem(new Item.Properties().setId(createID("tag_filter"))));
+            properties -> new FilterItem(new Item.Properties().setId(createID("tag_filter")), FilterType.TAG));
+
+    public static final DeferredItem<Item> STOCK_FILTER = ITEMS.registerItem("stock_filter",
+            properties -> new FilterItem(new Item.Properties().setId(createID("stock_filter")), FilterType.STOCK));
     
     public static final DeferredItem<Item> ROUND_ROBIN_UPGRADE = ITEMS.register("round_robin_upgrade",
             () -> new UpgradeItem(new Item.Properties().setId(createID("round_robin_upgrade")), 0));

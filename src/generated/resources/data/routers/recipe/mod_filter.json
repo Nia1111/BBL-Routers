@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:ingots/iron",
+    "B": "#minecraft:logs",
+    "C": "minecraft:name_tag"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "id": "routers:mod_filter"
+  }
+}

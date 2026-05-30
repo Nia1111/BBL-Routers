@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "routers",
+  "key": {
+    "A": "#c:gems/diamond",
+    "B": "#minecraft:logs",
+    "C": "minecraft:name_tag"
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "id": "routers:stock_filter"
+  }
+}

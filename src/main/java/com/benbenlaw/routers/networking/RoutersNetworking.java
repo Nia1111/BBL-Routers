@@ -11,10 +11,10 @@ public class RoutersNetworking {
     public static void registerNetworking(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar(Routers.MOD_ID);
 
-
-
         registrar.playToServer(OpenMenu.TYPE, OpenMenu.STREAM_CODEC, OpenMenu.HANDLER);
         registrar.playToServer(BackMenu.TYPE, BackMenu.STREAM_CODEC, BackMenu.HANDLER);
+
+        registrar.playToServer(SyncStack.TYPE, SyncStack.STREAM_CODEC, SyncStack.HANDLER);
 
     }
 }

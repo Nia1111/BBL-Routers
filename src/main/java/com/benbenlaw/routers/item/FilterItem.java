@@ -1,16 +1,12 @@
 package com.benbenlaw.routers.item;
 
-import com.benbenlaw.routers.screen.ConfigMenu;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
+import com.benbenlaw.routers.networking.packets.SyncStack;
+import com.benbenlaw.routers.screen.ClientScreens;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,66 +14,39 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class FilterItem extends Item {
 
+    public FilterType filterType;
 
-    public FilterItem(Properties properties) {
+    public FilterItem(Properties properties, FilterType filterType) {
         super(properties);
+        this.filterType = filterType;
     }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-    if (!level.isClientSide()) {
-            BlockPos pos = player.blockPosition();
-
-            ContainerData data = new SimpleContainerData(2);
-
-            player.openMenu(new SimpleMenuProvider(
-                    (windowId, playerInventory, playerEntity) -> new ConfigMenu(windowId, playerInventory, pos, data),
-                    Component.translatable("screen.routers.config_screen")), (buf -> buf.writeBlockPos(pos)));
-
+        if (!level.isClientSide()) {
+            return InteractionResult.PASS;
         }
+
+        if (!player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+        ClientScreens.openConfigScreen(player.getMainHandItem());
         return InteractionResult.SUCCESS;
     }
 
-    /*
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
-
-        if (Screen.hasShiftDown()) {
-
-            if (stack.is(RoutersItems.TAG_FILTER)) {
-                if (stack.has(RoutersDataComponents.TAG_FILTER.get())) {
-                    Identifier tag = stack.get(RoutersDataComponents.TAG_FILTER.get());
-                    assert tag != null;
-                    components.add(Component.translatable("tooltip.routers.tag_filter", tag.toString()).withStyle(ChatFormatting.YELLOW));
-                } else {
-                    components.add(Component.translatable("tooltip.routers.tag_filter_empty").withStyle(ChatFormatting.YELLOW));
-                }
-            }
-            if (stack.is(RoutersItems.MOD_FILTER)) {
-                if (stack.has(RoutersDataComponents.MOD_FILTER.get())) {
-                    String mod = stack.get(RoutersDataComponents.MOD_FILTER.get());
-                    components.add(Component.translatable("tooltip.routers.mod_filter", mod).withStyle(ChatFormatting.YELLOW));
-                } else {
-                    components.add(Component.translatable("tooltip.routers.mod_filter_empty").withStyle(ChatFormatting.YELLOW));
-                }
-            }
-
-        } else {
-            components.add(Component.translatable("tooltip.routers.hold_shift").withStyle(ChatFormatting.YELLOW));
-        }
-    }
-
-     */
-
-
     public void setTag(ItemStack stack, Identifier tag) {
         stack.set(RoutersDataComponents.TAG_FILTER.get(), tag);
-        //ClientPacketDistributor.sendToServer(new FilterItemUpdate(stack));
+        ClientPacketDistributor.sendToServer(new SyncStack(stack));
     }
 
     public void setMod(ItemStack stack, String mod) {
         stack.set(RoutersDataComponents.MOD_FILTER.get(), mod);
-        //ClientPacketDistributor.sendToServer(new FilterItemUpdate(stack));
+        ClientPacketDistributor.sendToServer(new SyncStack(stack));
+    }
+
+    public void setStock(ItemStack stack, ItemStack stockStack, int amount) {
+        stack.set(RoutersDataComponents.STOCK_FILTER.get(), new StockFilter(stockStack, amount));
+        ClientPacketDistributor.sendToServer(new SyncStack(stack));
     }
 
     public TagKey<Item> getTag(ItemStack stack) {
@@ -88,6 +57,42 @@ public class FilterItem extends Item {
             }
         }
         return null;
+    }
+
+    public boolean matches(ItemStack filterStack, net.minecraft.world.item.ItemStack incoming) {
+
+        if (filterStack.isEmpty()) return true;
+
+        if (!(filterStack.getItem() instanceof FilterItem filter)) return true;
+
+        return switch (filter.filterType) {
+
+            case MOD -> {
+                String mod = filterStack.get(RoutersDataComponents.MOD_FILTER.get());
+                if (mod == null) yield false;
+
+                yield incoming.getItem().builtInRegistryHolder()
+                        .unwrapKey()
+                        .map(key -> key.identifier().getNamespace().equals(mod))
+                        .orElse(false);
+            }
+
+            case TAG -> {
+                Identifier id = filterStack.get(RoutersDataComponents.TAG_FILTER.get());
+                if (id == null) yield false;
+
+                var tag = TagKey.create(net.minecraft.core.registries.Registries.ITEM, id);
+
+                yield incoming.is(tag);
+            }
+
+            case STOCK -> {
+                var stock = filterStack.get(RoutersDataComponents.STOCK_FILTER.get());
+                if (stock == null) yield false;
+
+                yield ItemStack.isSameItemSameComponents(incoming, stock.stack());
+            }
+        };
     }
 
 

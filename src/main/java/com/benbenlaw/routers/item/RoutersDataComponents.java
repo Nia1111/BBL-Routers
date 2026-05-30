@@ -34,6 +34,10 @@ public class RoutersDataComponents {
             COMPONENTS.register("energy", () ->
                     DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT).build());
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<StockFilter>> STOCK_FILTER =
+            COMPONENTS.register("stock_filter", () ->
+                    DataComponentType.<StockFilter>builder().persistent(StockFilter.CODEC).networkSynchronized(StockFilter.STREAM_CODEC).build());
+
 
 
 }
