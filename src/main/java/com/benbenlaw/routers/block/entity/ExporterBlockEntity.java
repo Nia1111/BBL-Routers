@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProvider {
 
@@ -157,7 +158,8 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
 
         assert level != null;
         if (level.isClientSide()) return;
-        if (!level.getBlockState(worldPosition).getValue(RouterBlock.WORKING)) return;
+        BlockState currentState = level.getBlockState(worldPosition);
+        if (!currentState.hasProperty(RouterBlock.WORKING) || !currentState.getValue(RouterBlock.WORKING)) return;
 
         if (level.getGameTime() % 100 == 0) {
             validateImporterPositions(importerPositions);
@@ -203,9 +205,11 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
 
     public void validateImporterPositions(List<GlobalPos> importerPositions) {
         importerPositions.removeIf(pos -> {
-            ServerLevel importerLevel = level.getServer().getLevel(pos.dimension());
+            assert level != null;
+            ServerLevel importerLevel = Objects.requireNonNull(level.getServer()).getLevel(pos.dimension());
             return importerLevel == null || importerLevel.getBlockEntity(pos.pos()) == null;
         });
+        sync();
     }
 
 

@@ -15,20 +15,24 @@ public class TransferEngine {
 
         if (isRoundRobin) {
             for (int i = 0; i < size; i++) {
-                int currentIndex = (lastIndex + i) % size;
-                boolean isWorking = level.getBlockState(importers.get(currentIndex).pos()).getValue(RouterBlock.WORKING);
-                if (isWorking) {
-                    if (transferLogic.tryTransfer(level, exporter, importers.get(currentIndex))) {
-                        return (currentIndex + 1) % size;
+                if (level.getBlockState(importers.get(lastIndex).pos()).getBlock() instanceof RouterBlock) {
+                    int currentIndex = (lastIndex + i) % size;
+                    boolean isWorking = level.getBlockState(importers.get(currentIndex).pos()).getValue(RouterBlock.WORKING);
+                    if (isWorking) {
+                        if (transferLogic.tryTransfer(level, exporter, importers.get(currentIndex))) {
+                            return (currentIndex + 1) % size;
+                        }
                     }
                 }
             }
         } else {
             for (int i = 0; i < size; i++) {
-                boolean isWorking = level.getBlockState(importers.get(i).pos()).getValue(RouterBlock.WORKING);
-                if (isWorking) {
-                    if (transferLogic.tryTransfer(level, exporter, importers.get(i))) {
-                        return lastIndex;
+                if (level.getBlockState(importers.get(i).pos()).getBlock() instanceof RouterBlock) {
+                    boolean isWorking = level.getBlockState(importers.get(i).pos()).getValue(RouterBlock.WORKING);
+                    if (isWorking) {
+                        if (transferLogic.tryTransfer(level, exporter, importers.get(i))) {
+                            return lastIndex;
+                        }
                     }
                 }
             }
