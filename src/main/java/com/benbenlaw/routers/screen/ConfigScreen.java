@@ -47,8 +47,8 @@ public class ConfigScreen extends Screen {
     private long lastSwitchTime = 0;
     private static final long SWITCH_INTERVAL = 1000;
 
-    private List<String> suggestions = new ArrayList<>();
-    private int selectedSuggestion = -1;
+    private List<String> suggestions = new ArrayList<>();       // what's shown in the dropdown
+    private List<String> suggestionValues = new ArrayList<>();    private int selectedSuggestion = -1;
     private boolean suppressSuggestions = false;
     public ConfigScreen(Component title, ItemStack stack) {
         super(title);
@@ -70,7 +70,6 @@ public class ConfigScreen extends Screen {
         searchBox = new EditBox(this.font, x + 8, y + 16, 160, 18, Component.literal(""));
 
         searchBox.setMaxLength(64);
-        searchBox.setFocused(true);
 
         Component searchTextOverlay = Component.literal("");
         if (stack.getItem() instanceof FilterItem filterItem) {
@@ -97,6 +96,9 @@ public class ConfigScreen extends Screen {
 
         updateCountVisibility();
         loadFromItem();
+
+        this.setInitialFocus(searchBox);
+
     }
 
     @Override
@@ -146,18 +148,24 @@ public class ConfigScreen extends Screen {
         if (suppressSuggestions) return;
 
         suggestions.clear();
+        suggestionValues.clear();
         selectedSuggestion = -1;
 
         if (input.isEmpty()) return;
 
         if (!(stack.getItem() instanceof FilterItem filter)) return;
 
+        String query = input.toLowerCase();
+
         switch (filter.filterType) {
             case MOD -> {
                 for (var mod : ModList.get().getMods()) {
                     String id = mod.getModId();
-                    if (id.toLowerCase().contains(input.toLowerCase())) {
-                        suggestions.add(id);
+                    String displayName = mod.getDisplayName(); // IModInfo#getDisplayName()
+
+                    if (id.toLowerCase().contains(query) || displayName.toLowerCase().contains(query)) {
+                        suggestions.add(displayName);
+                        suggestionValues.add(id);
                     }
                 }
             }
@@ -171,8 +179,9 @@ public class ConfigScreen extends Screen {
 
                 itemLookup.listTagIds().forEach(tagId -> {
                     String value = tagId.location().toString();
-                    if (value.toLowerCase().contains(input.toLowerCase())) {
+                    if (value.toLowerCase().contains(query)) {
                         suggestions.add(value);
+                        suggestionValues.add(value);
                     }
                 });
             }
@@ -185,9 +194,15 @@ public class ConfigScreen extends Screen {
                 var itemLookup = registryAccess.lookupOrThrow(Registries.ITEM);
 
                 itemLookup.listElements().forEach(holder -> {
-                    String id = holder.unwrapKey().get().identifier().toString();
-                    if (id.toLowerCase().contains(input.toLowerCase())) {
-                        suggestions.add(id);
+                    var keyOpt = holder.unwrapKey();
+                    if (keyOpt.isEmpty()) return;
+
+                    String id = keyOpt.get().identifier().toString();
+                    String displayName = new ItemStack(holder.value()).getHoverName().getString();
+
+                    if (id.toLowerCase().contains(query) || displayName.toLowerCase().contains(query)) {
+                        suggestions.add(displayName);
+                        suggestionValues.add(id);
                     }
                 });
             }
@@ -254,9 +269,9 @@ public class ConfigScreen extends Screen {
     }
 
     private String getSelectedOrFirst() {
-        if (!suggestions.isEmpty()) {
-            if (selectedSuggestion < 0) return suggestions.get(0);
-            return suggestions.get(Math.min(selectedSuggestion, suggestions.size() - 1));
+        if (!suggestionValues.isEmpty()) {
+            if (selectedSuggestion < 0) return suggestionValues.getFirst();
+            return suggestionValues.get(Math.min(selectedSuggestion, suggestionValues.size() - 1));
         }
         return null;
     }
@@ -309,7 +324,7 @@ public class ConfigScreen extends Screen {
                 if (event.x() >= x && event.x() <= x + 160 &&
                         event.y() >= rowY && event.y() <= rowY + 12) {
 
-                    searchBox.setValue(suggestions.get(i));
+                    searchBox.setValue(suggestionValues.get(i));
                     applySelected();
 
                     return true;
@@ -406,9 +421,17 @@ public class ConfigScreen extends Screen {
             }
 
             case STOCK -> {
-                var stock = stack.get(RoutersDataComponents.STOCK_FILTER.get());
-                if (stock != null && !stock.stack().isEmpty()) {
-                    previewStacks.add(stock.stack().copy());
+                String input = searchBox.getValue();
+                Identifier id = (input != null && !input.isEmpty()) ? Identifier.tryParse(input) : null;
+                var holder = (id != null) ? itemLookup.get(id).orElse(null) : null;
+
+                if (holder != null) {
+                    previewStacks.add(new ItemStack(holder.value()));
+                } else {
+                    var stock = stack.get(RoutersDataComponents.STOCK_FILTER.get());
+                    if (stock != null && !stock.stack().isEmpty()) {
+                        previewStacks.add(stock.stack().copy());
+                    }
                 }
             }
         }
