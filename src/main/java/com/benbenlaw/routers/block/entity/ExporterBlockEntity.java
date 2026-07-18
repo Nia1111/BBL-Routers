@@ -34,6 +34,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -342,6 +343,10 @@ public class ExporterBlockEntity extends SyncableBlockEntity implements MenuProv
                 .forEach(importerPositions::add);
 
         super.loadAdditional(input);
+    }
+
+    @Override public void preRemoveSideEffects(@NonNull BlockPos pos, @NonNull BlockState state) {
+        dropInventoryContents(upgradeItemHandler);
     }
 
 

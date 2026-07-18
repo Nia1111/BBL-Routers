@@ -3,6 +3,7 @@ package com.benbenlaw.routers.screen;
 import com.benbenlaw.core.screen.SimpleAbstractContainerMenu;
 import com.benbenlaw.core.screen.util.slot.InputSlot;
 import com.benbenlaw.routers.block.entity.ExporterBlockEntity;
+import com.benbenlaw.routers.util.RoutersTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class ExporterMenu extends SimpleAbstractContainerMenu {
 
@@ -39,5 +41,50 @@ public class ExporterMenu extends SimpleAbstractContainerMenu {
 
 
         this.addDataSlots(data);
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(Player playerIn, int pIndex) {
+        Slot sourceSlot = this.slots.get(pIndex);
+        if (sourceSlot == null || !sourceSlot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack sourceStack = sourceSlot.getItem();
+
+        if (pIndex >= 36) {
+            return super.quickMoveStack(playerIn, pIndex);
+        }
+
+        if (!sourceStack.is(RoutersTags.Items.UPGRADES)) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack single = sourceStack.copyWithCount(1);
+
+        if (blockEntity.hasUpgradeTypeAlready(single)) {
+            return ItemStack.EMPTY;
+        }
+
+        Slot targetSlot = null;
+        for (int i = 36; i < 45; i++) {
+            Slot slot = this.slots.get(i);
+            if (!slot.hasItem()) {
+                targetSlot = slot;
+                break;
+            }
+        }
+
+        if (targetSlot == null) {
+            return ItemStack.EMPTY;
+        }
+
+        targetSlot.set(single);
+        targetSlot.setChanged();
+
+        sourceStack.shrink(1);
+        sourceSlot.setChanged();
+
+        return ItemStack.EMPTY;
     }
 }
