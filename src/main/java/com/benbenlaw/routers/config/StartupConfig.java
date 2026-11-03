@@ -198,7 +198,7 @@ public class StartupConfig {
 
         BUILDER.pop();
 
-        BUILDER.comment("Performance Config").push("Performance");
+        BUILDER.push("Performance");
 
         maxInventoryScanPerOperation = BUILDER
                 .comment("The maximum number of slots an exporter/importer will scan in a single operation when looking for a match.",
@@ -222,7 +222,7 @@ public class StartupConfig {
 
         BUILDER.pop();
 
-        BUILDER.comment().push("Router Manager");
+        BUILDER.push("Router Manager");
 
         managerSeedRadius = BUILDER
                 .comment("Routers within this many blocks of a Router Manager are where its flow chart starts.",
@@ -235,7 +235,7 @@ public class StartupConfig {
 
         BUILDER.pop();
 
-        BUILDER.comment().push("Distributor");
+        BUILDER.push("Distributor");
 
         distributorRange = BUILDER
                 .comment("The range of the distributor in blocks.")
