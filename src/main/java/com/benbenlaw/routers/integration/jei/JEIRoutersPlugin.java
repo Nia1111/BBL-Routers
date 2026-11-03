@@ -46,10 +46,40 @@ public class JEIRoutersPlugin implements IModPlugin {
     public void registerIngredientAliases(IIngredientAliasRegistration registration) {
         registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersItems.CONNECTOR.get())), "wrench");
 
-        Collection<String> exporterAliases = List.of("exporter", "cable", "wireless");
-        Collection<String> importerAliases = List.of("importer", "cable", "wireless");
+        Collection<String> exporterAliases = List.of("export", "exporter", "cable", "wireless");
+        Collection<String> importerAliases = List.of("import", "importer", "cable", "wireless");
+
+        Collection<String> energyUpgrades = List.of("rf", "energy", "power");
+        Collection<String> fluidUpgrades = List.of("fluid", "liquid");
+        Collection<String> itemUpgrades = List.of("item");
 
         registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersBlocks.EXPORTER.get())),  exporterAliases);
         registration.addAliases(VanillaTypes.ITEM_STACK, List.of(new ItemStack(RoutersBlocks.IMPORTER.get())),  importerAliases);
+
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(
+                new ItemStack(RoutersItems.RF_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.RF_UPGRADE_2.get()),
+                new ItemStack(RoutersItems.RF_UPGRADE_3.get()),
+                new ItemStack(RoutersItems.RF_UPGRADE_4.get()),
+                new ItemStack(RoutersItems.RF_UPGRADE_5.get())
+        ),  energyUpgrades);
+
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(
+                new ItemStack(RoutersItems.FLUID_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.FLUID_UPGRADE_2.get()),
+                new ItemStack(RoutersItems.FLUID_UPGRADE_3.get()),
+                new ItemStack(RoutersItems.FLUID_UPGRADE_4.get()),
+                new ItemStack(RoutersItems.FLUID_UPGRADE_5.get())
+        ),  fluidUpgrades);
+
+        registration.addAliases(VanillaTypes.ITEM_STACK, List.of(
+                new ItemStack(RoutersItems.ITEM_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.ITEM_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.ITEM_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.ITEM_UPGRADE_1.get()),
+                new ItemStack(RoutersItems.ITEM_UPGRADE_1.get())
+        ),  itemUpgrades);
+
+
     }
 }
